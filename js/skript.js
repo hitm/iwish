@@ -1,20 +1,15 @@
 $(document).ready(function(){
-    var myDataRef = new Firebase('https://iwish.firebaseio.com/');
+    var myDataRef = new Firebase('https://iwish.firebaseio.com/wishes');
     console.log("started");
- $('#messageInput').keypress(function (e) {
-        if (e.keyCode == 13) {
-          var name = $('#nameInput').val();
-          var text = $('#messageInput').val();
-          myDataRef.push({name: name, text: text});
-          $('#messageInput').val('');
-        }
-      });
-      myDataRef.on('child_added', function(snapshot) {
-        var message = snapshot.val();
-        displayChatMessage(message.name, message.text);
-      });
-      function displayChatMessage(name, text) {
-        $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
-        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-      };
+ $('#wish').on('click', function() {
+    var wish = $('#wishInput').val();
+    myDataRef.child(wish).set({wish: wish});
+    var message1 = '<div id="step">шаг 2 из 4</div><p>Вы загадали</p> </br> <p>чтобы ваше желание исполнилось, укажите:</p> <div id="field1"><p>Зачем?</p><input class="span2" id="reason" type="text" placeholder="причина"><button type="submit" class="btn btn-primary" id="add_reason" >добавить</button>  </div>';
+    $('.hero-unit').html(message1);
+     console.log("wish");
+ });
+  $('#add_reason').on('click', function() {
+     //var myDataRef = new Firebase('https://iwish.firebaseio.com/wishes/' + wish + ');
+  });
+    console.log(wish);
 });

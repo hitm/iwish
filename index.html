@@ -9,6 +9,7 @@
 
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -19,7 +20,7 @@
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
+      <script src="js/html5shiv.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->
@@ -70,12 +71,15 @@
     </div>
 
     <div class="container">
-       <div id='messagesDiv'></div>
-    <input type='text' id='nameInput' placeholder='Name'>
-    <input type='text' id='messageInput' placeholder='Message'>
-      <footer>
-        <p>&copy; Company 2013</p>
-      </footer>
+    <div class="container" id="cont">
+        <div class="hero-unit">
+        <div id="step">шаг 1 из 4</div>
+
+        <h1>Привет!</h1>
+        <p>Пришло время загадать своё первое желание!</p>
+        <input type='wish' id='wishInput' placeholder='я хотет'>
+        <button type="submit" class="btn btn-primary" id="wish" >Захотеть &raquo;</button>
+        </div>
 
     </div> <!-- /container -->
 
@@ -83,6 +87,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
+    <script src="js/skript.js"></script>
     <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
     <script src="js/bootstrap-transition.js"></script>
     <script src="js/bootstrap-alert.js"></script>
@@ -96,7 +101,7 @@
     <script src="js/bootstrap-collapse.js"></script>
     <script src="js/bootstrap-carousel.js"></script>
     <script src="js/bootstrap-typeahead.js"></script>
-    <script src="js/skript.js"></script>
+
 
   </body>
 </html>
