@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var myDataRef = new Firebase('https://iwish.firebaseio.com/');
     console.log("started");
-   $('#messageInput').keypress(function (e) {
+ $('#messageInput').keypress(function (e) {
         if (e.keyCode == 13) {
           var name = $('#nameInput').val();
           var text = $('#messageInput').val();
@@ -10,7 +10,8 @@ $(document).ready(function(){
         }
       });
       myDataRef.on('child_added', function(snapshot) {
-        [MESSAGE CALLBACK CODE GOES HERE]
+        var message = snapshot.val();
+        displayChatMessage(message.name, message.text);
       });
       function displayChatMessage(name, text) {
         $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
