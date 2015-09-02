@@ -2,7 +2,6 @@ $(document).ready(function(){
     var myDataRef = new Firebase('https://iwish.firebaseio.com/wishes');
     var online = 0;
     var my_wish = "";
-    var step = 1;
     var div_wish = '<div id="wish_div"><h1>Привет!</h1> <p>Пришло время загадать своё первое желание!</p><input type="text" id="wishInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="wish" >Захотеть &raquo;</button></div>';
     var btn_id = "";
     var btn_add = '<button type="submit" class="btn btn-primary" id="add" >добавить</button>';
@@ -16,9 +15,9 @@ $(document).ready(function(){
      $('#wish').on('click', function() {
         my_wish = $('#wishInput').val();
         myDataRef.child(my_wish).set({wish: my_wish});
-
-        $('.hero-unit').html();
-        console.log("wish");
+        var div_step = '<div id="step">шаг 2 из 4</div>';
+        $('.hero-unit').html(div_step + div_reason);
+        console.log("reason");
      });
      $('#add_reason').on('click', function() {
         console.log("mywish");
