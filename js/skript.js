@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var myDataRef = new Firebase('https://iwish.firebaseio.com/wishes');
     console.log("started");
-    var mywish = "";
+    var mywish = "1";
  $('#wish').on('click', function() {
     mywish = $('#wishInput').val();
     myDataRef.child(mywish).set({wish: mywish});
