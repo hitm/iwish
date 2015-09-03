@@ -11,12 +11,39 @@ $(document).ready(function(){
     var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="reason" >Захотеть &raquo;</button></div>';
     var div_hedge = '<div><h1>преграда</h1><input type="text" id="hedgeInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="hedge" >Захотеть &raquo;</button></div>';
     var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="price" >Захотеть &raquo;</button></div>';
-    var div_online = '<div><p>Вы онлайн</p></div>'
+    var div_online = '<div id="qazwsx"><p>Вы онлайн</p></div>'
 
 
+
+
+    $("#myDiv1").click(function () {
+        $(this).replaceWith('<div id="price"><h1>жертва</h1><button type="submit" class="btn btn-primary">Захотеть</button></div>');
+    });
+
+    $("#price").click(function () {
+        $(this).replaceWith('<div id="hedge"><h1>преграда</h1><button type="submit" class="btn btn-primary">Захотеть</button></div>');
+    });
+
+
+//$('#init').on('click',function () {
+
+  // Заменяем параграф в #myDiv1 новым параграфом
+ // $('#myDiv1>p').replaceWith( "<p>Новый параграф с текстомqwe</p>" );
+
+ // });
+/*
+ $('#wish').on('click', function wishFunction(){
+        my_wish = $('#wishInput').val();
+        wishDataRef.child(my_wish).set({wish: my_wish});
+        var div_step = '<div>шаг 2 из 4</div>';
+        $('.hero-unit').html(div_step + div_reason);
+        console.log("wish");
+     });
+
+   /*
     if(online === 0){
         var div_step = '<div>шаг 1 из 4</div>';
-            $('.hero-unit').html(div_step + div_reason);
+            $('.hero-unit').html(div_step + div_wish);
         }
     else{
 
@@ -29,15 +56,17 @@ $(document).ready(function(){
         var div_step = '<div>шаг 2 из 4</div>';
         $('.hero-unit').html(div_step + div_reason);
         console.log("wish");
+        return false
      });
 
-
+/*
      $('#reason').on('click', function reasonFunction() {
         my_reason = $('#reasonInput').val();
         reasonDataRef.child(my_reason).set({reason: my_reason});
         var div_step = '<div>шаг 3 из 4</div>';
         $('.hero-unit').html(div_step + div_hedge);
         console.log("hedge");
+        return false
      });
 
 
@@ -46,7 +75,7 @@ $(document).ready(function(){
 
 
 
-
+*/
 
 
 
