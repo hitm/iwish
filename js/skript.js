@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
     var wishDataRef = new Firebase('https://iwish.firebaseio.com/wishes');
     var reasonDataRef = new Firebase('https://iwish.firebaseio.com/reasons');
     var online = 0;
@@ -7,16 +8,73 @@ $(document).ready(function(){
     var my_hedge= "";
     var my_price= "";
 
-    var div_wish = '<div><h1>Привет!</h1> <p>Пришло время загадать своё первое желание!</p><input type="text" id="wishInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="wish" >Захотеть &raquo;</button></div>';
-    var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="reason" >Захотеть &raquo;</button></div>';
-    var div_hedge = '<div><h1>преграда</h1><input type="text" id="hedgeInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="hedge" >Захотеть &raquo;</button></div>';
-    var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="price" >Захотеть &raquo;</button></div>';
-    var div_online = '<div id="qazwsx"><p>Вы онлайн</p></div>'
+
+    console.log("qqq");
 
 
 
+   $("#chmyDiv1").click(function () {
+       var div_online = '<div id="online_div"><p>Вы онлайн</p><button type="submit" class="btn btn-primary" id="chmyDiv2">поменять</button></div>';
+       $('.hero-unit').html(div_online);
+       console.log("q");
 
-    $("#myDiv1").click(function () {
+       // $(this).replaceWith('<div id="price"><h1>жертва</h1><button type="submit" class="btn btn-primary">Захотеть</button></div>');
+    });
+
+  /*
+    $('chmyDiv1').on('click', function (){
+       // my_wish = $('#wishInput').val();
+       // wishDataRef.child(my_wish).set({wish: my_wish});
+       // var div_step = '<div>шаг 2 из 4</div>';
+       // $('.hero-unit').html(div_step + div_reason);
+        $('.hero-unit').html(div_online);
+        console.log("wish");
+        return false
+     });
+   */
+    if(chmyDiv1!=0){
+
+        console.log("!=0");
+
+    }
+    else{
+         console.log("=0");
+
+    }
+
+       console.log("next step");
+     $("#chmyDiv2").click(function () {
+       var div_wish = '<div id="wish_div"><h1>Привет!</h1> <p>Пришло время загадать своё первое желание!</p><input type="text" id="wishInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toreason" >Захотеть &raquo;</button></div>';
+       $('.hero-unit').html(div_wish);
+       console.log("w");
+    });
+
+      $("#toreason").click(function () {
+       var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="tohedge" >Захотеть &raquo;</button></div>';
+       $('.hero-unit').html(div_reason);
+       console.log("e");
+    });
+
+        $("#tohedge").click(function () {
+       var div_hedge = '<div><h1>преграда</h1><input type="text" id="hedgeInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
+       $('.hero-unit').html(div_reason);
+       console.log("r");
+    });
+
+     $("#toprice").click(function () {
+       var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
+       $('.hero-unit').html(div_reason);
+       console.log("t");
+    });
+
+   console.log("asd");
+
+
+ //   $('.hero-unit').html(div_price);
+
+
+
+   /* $("#myDiv1").click(function () {
         $(this).replaceWith('<div id="price"><h1>жертва</h1><button type="submit" class="btn btn-primary">Захотеть</button></div>');
     });
 
@@ -31,6 +89,10 @@ $(document).ready(function(){
  // $('#myDiv1>p').replaceWith( "<p>Новый параграф с текстомqwe</p>" );
 
  // });
+*/
+
+
+
 /*
  $('#wish').on('click', function wishFunction(){
         my_wish = $('#wishInput').val();
