@@ -9,37 +9,47 @@ $(document).ready(function(){
 
 
     console.log("qqq");
-
-
-if(step===1){
-  $("#chmyDiv1").click(function () {
+$("#chmyDiv1").click(function () {
   var div_online = '<div id="online_div"><p>Вы онлайн</p><button type="submit" class="btn btn-primary" id="chmyDiv2">поменять</button></div>';
        $('.hero-unit').html(div_online);
        console.log("q");
+     });
+
+if(step===1){
+    $("#chmyDiv2").click(function () {
+        var div_wish = '<div id="wish_div"><h1>Привет!</h1> <p>Пришло время загадать своё первое желание!</p><input type="text" id="wishInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toreason" >Захотеть &raquo;</button></div>';
+        $('.hero-unit').html(div_wish);
+        console.log("w");
+    });
 }
 else{
     if(step===2){
-        $("#chmyDiv2").click(function () {
-       var div_wish = '<div id="wish_div"><h1>Привет!</h1> <p>Пришло время загадать своё первое желание!</p><input type="text" id="wishInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toreason" >Захотеть &raquo;</button></div>';
-       $('.hero-unit').html(div_wish);
-       console.log("w");
-    });
-    }
-    else{
-        if(step===3){
-            $("#toreason").click(function () {
+       $("#toreason").click(function () {
        var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="tohedge" >Захотеть &raquo;</button></div>';
        $('.hero-unit').html(div_reason);
        console.log("e");
-    });
-        }
+       });
     }
-        4
-}
+    else{
+        if(step===3){
+            $("#tohedge").click(function () {
+            var div_hedge = '<div><h1>преграда</h1><input type="text" id="hedgeInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
+       $('.hero-unit').html(div_reason);
+       console.log("r");
+            });
+        });
+
+
+       $("#toprice").click(function () {
+       var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
+       $('.hero-unit').html(div_reason);
+       console.log("t");
+    });
+    }
 
 
        // $(this).replaceWith('<div id="price"><h1>жертва</h1><button type="submit" class="btn btn-primary">Захотеть</button></div>');
-    });
+
 
   /*
     $('chmyDiv1').on('click', function (){
@@ -65,23 +75,12 @@ else{
        console.log("next step");
 
 
-      $("#toreason").click(function () {
-       var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="tohedge" >Захотеть &raquo;</button></div>';
-       $('.hero-unit').html(div_reason);
-       console.log("e");
-    });
 
-        $("#tohedge").click(function () {
-       var div_hedge = '<div><h1>преграда</h1><input type="text" id="hedgeInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
-       $('.hero-unit').html(div_reason);
-       console.log("r");
-    });
 
-     $("#toprice").click(function () {
-       var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
-       $('.hero-unit').html(div_reason);
-       console.log("t");
-    });
+
+
+
+
 
    console.log("asd");
 
