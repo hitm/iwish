@@ -6,6 +6,7 @@ $(document).ready(function(){
     var my_reason= "";
     var my_hedge= "";
     var my_price= "";
+    var step="1";
 
 
     console.log("qqq");
