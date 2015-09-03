@@ -15,9 +15,9 @@ $(document).ready(function(){
 
     if(online === 0){
         var div_step = '<div>шаг 1 из 4</div>';
-            $('.hero-unit').html(div_step + div_wish);
+            $('.hero-unit').html(div_step + div_reason);
         }
-     $('#wish').on('click', function() {
+     $('#wish').on('click', function wishFunction(){
         my_wish = $('#wishInput').val();
         wishDataRef.child(my_wish).set({wish: my_wish});
         var div_step = '<div>шаг 2 из 4</div>';
@@ -25,17 +25,17 @@ $(document).ready(function(){
         console.log("wish");
      });
 
-    /*
-     $('#reason').on('click', function() {
+
+     $('#reason').on('click', function reasonFunction() {
         my_reason = $('#reasonInput').val();
         reasonDataRef.child(my_reason).set({reason: my_reason});
-        var div_step = '<div id="step">шаг 3 из 4</div>';
+        var div_step = '<div>шаг 3 из 4</div>';
         $('.hero-unit').html(div_step + div_hedge);
         console.log("hedge");
      });
 
 
-    */
+
 
 
 
