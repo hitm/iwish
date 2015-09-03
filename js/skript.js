@@ -19,11 +19,19 @@ if(step===1){
 }
 else{
     if(step===2){
-        2
+        $("#chmyDiv2").click(function () {
+       var div_wish = '<div id="wish_div"><h1>Привет!</h1> <p>Пришло время загадать своё первое желание!</p><input type="text" id="wishInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toreason" >Захотеть &raquo;</button></div>';
+       $('.hero-unit').html(div_wish);
+       console.log("w");
+    });
     }
     else{
         if(step===3){
-            3
+            $("#toreason").click(function () {
+       var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="tohedge" >Захотеть &raquo;</button></div>';
+       $('.hero-unit').html(div_reason);
+       console.log("e");
+    });
         }
     }
         4
@@ -55,11 +63,7 @@ else{
     }
 
        console.log("next step");
-     $("#chmyDiv2").click(function () {
-       var div_wish = '<div id="wish_div"><h1>Привет!</h1> <p>Пришло время загадать своё первое желание!</p><input type="text" id="wishInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toreason" >Захотеть &raquo;</button></div>';
-       $('.hero-unit').html(div_wish);
-       console.log("w");
-    });
+
 
       $("#toreason").click(function () {
        var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="tohedge" >Захотеть &raquo;</button></div>';
