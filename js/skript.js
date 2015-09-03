@@ -11,12 +11,18 @@ $(document).ready(function(){
     var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="reason" >Захотеть &raquo;</button></div>';
     var div_hedge = '<div><h1>преграда</h1><input type="text" id="hedgeInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="hedge" >Захотеть &raquo;</button></div>';
     var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="price" >Захотеть &raquo;</button></div>';
+    var div_online = '<div><p>Вы онлайн</p></div>'
 
 
     if(online === 0){
         var div_step = '<div>шаг 1 из 4</div>';
             $('.hero-unit').html(div_step + div_reason);
         }
+    else{
+
+    $('.hero-unit').html(div_online);
+    };
+
      $('#wish').on('click', function wishFunction(){
         my_wish = $('#wishInput').val();
         wishDataRef.child(my_wish).set({wish: my_wish});
