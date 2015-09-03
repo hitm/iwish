@@ -24,16 +24,16 @@ $(document).ready(function(){
      $('.container').on('click', '#add_reason', function(){
         console.log("step3");
         if (reason_started = false){
-            var wishRef = new Firebase('https://iwish.firebaseio.com/wishes/' + my_wish);
+            var wishRef = new Firebase('https://iwish.firebaseio.com/wishes');
             my_reason = $('#reasonInput').val();
-            wishRef.child('reasons').set({reason: my_reason});
+            wishRef.child(my_wish + '/reasons').set({reason: my_reason});
            //reason_started = true;
             $('#reasonInput').val('');
         }
         else{
-            var wishRef = new Firebase('https://iwish.firebaseio.com/wishes/' + my_wish + '/reasons');
+            var wishRef = new Firebase('https://iwish.firebaseio.com/wishes');
             my_reason = $('#reasonInput').val();
-            wishRef.child('123').set({reason: my_reason});
+            wishRef.child(my_wish + '/reasons').set({reason: my_reason});
         }
 
          console.log(my_reason);
@@ -42,7 +42,7 @@ $(document).ready(function(){
      });
      $('.container').on('click', '#add_reason', function(){
         console.log("step4");
-        var wishRef = new Firebase('https://iwish.firebaseio.com/wishes/' + my_wish);
+        var wishRef = new Firebase('https://iwish.firebaseio.com/wishes/');
         my_price = $('#priceInput').val();
         wishRef.child(my_price).set({price: my_price});
          var div_step = '<div id="step">шаг 3 из 4</div>';
