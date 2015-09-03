@@ -7,13 +7,13 @@ $(document).ready(function(){
     var my_hedge= "";
     var my_price= "";
 
-/*
+
     console.log("qqq");
 $("#chmyDiv1").click(function () {
   var div_online = '<div id="online_div"><p>Вы онлайн</p><button type="submit" class="btn btn-primary" id="chmyDiv2">поменять</button></div>';
        $('.hero-unit').html(div_online);
        console.log("q");
-     });*/
+     });
 
 if(step===1){
     $("#chmyDiv2").click(function () {
@@ -38,7 +38,7 @@ else{
                 console.log("r");
             });
         }
-        }
+
         else{
            $("#toprice").click(function () {
                var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
@@ -46,8 +46,9 @@ else{
                console.log("t");
             });
         }
-}
-
+    }
+};
+});
 
        // $(this).replaceWith('<div id="price"><h1>жертва</h1><button type="submit" class="btn btn-primary">Захотеть</button></div>');
 
@@ -62,7 +63,7 @@ else{
         console.log("wish");
         return false
      });
-   */
+
     if(chmyDiv1!=0){
 
         console.log("!=0");
