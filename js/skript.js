@@ -46,7 +46,7 @@ if(step===1){
         }
         else{
            $("#toprice").click(function () {
-               var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
+               var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="nextPage" >Захотеть &raquo;</button></div>';
                $('.hero-unit').html(div_reason);
                console.log("t");
                step=step+1;
