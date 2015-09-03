@@ -12,7 +12,20 @@ $(document).ready(function(){
     console.log("qqq");
 
 
-
+if(step===1){
+  1
+}
+else{
+    if(step===2){
+        2
+    }
+    else{
+        if(step===3){
+            3
+        }
+    }
+        4
+}
    $("#chmyDiv1").click(function () {
        var div_online = '<div id="online_div"><p>Вы онлайн</p><button type="submit" class="btn btn-primary" id="chmyDiv2">поменять</button></div>';
        $('.hero-unit').html(div_online);
