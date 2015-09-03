@@ -10,7 +10,7 @@ $(document).ready(function(){
 
 
     console.log("qqq");
-$("#chmyDiv1").click(function () {
+$("button").click(function () {
   var div_online = '<div id="online_div"><p>Вы онлайн</p><button type="submit" class="btn btn-primary" id="chmyDiv2">поменять</button></div>';
        $('.hero-unit').html(div_online);
        step=step+1;
@@ -19,7 +19,7 @@ $("#chmyDiv1").click(function () {
      });
 
 if(step===1){
-    $("#chmyDiv2").click(function () {
+    $("button").click(function () {
         var div_wish = '<div id="wish_div"><h1>Привет!</h1> <p>Пришло время загадать своё первое желание!</p><input type="text" id="wishInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toreason" >Захотеть &raquo;</button></div>';
         $('.hero-unit').html(div_wish);
         step=step+1;
@@ -28,7 +28,7 @@ if(step===1){
 }
 
     if(step===2){
-       $("#toreason").click(function () {
+       $("button").click(function () {
            var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="tohedge" >Захотеть &raquo;</button></div>';
            $('.hero-unit').html(div_reason);
            step=step+1;
@@ -37,7 +37,7 @@ if(step===1){
     }
 
         if(step===3){
-            $("#tohedge").click(function () {
+            $("button").click(function () {
                 var div_hedge = '<div><h1>преграда</h1><input type="text" id="hedgeInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
                 $('.hero-unit').html(div_reason);
                 step=step+1;
