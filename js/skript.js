@@ -1,7 +1,6 @@
 $(document).ready(function(){
 
     var wishDataRef = new Firebase('https://iwish.firebaseio.com/wishes');
-    var reasonDataRef = new Firebase('https://iwish.firebaseio.com/reasons');
     var online = 0;
     var my_wish = "";
     var my_reason= "";
@@ -13,7 +12,10 @@ $(document).ready(function(){
 
 
 if(step===1){
-  1
+  $("#chmyDiv1").click(function () {
+  var div_online = '<div id="online_div"><p>Вы онлайн</p><button type="submit" class="btn btn-primary" id="chmyDiv2">поменять</button></div>';
+       $('.hero-unit').html(div_online);
+       console.log("q");
 }
 else{
     if(step===2){
@@ -26,10 +28,7 @@ else{
     }
         4
 }
-   $("#chmyDiv1").click(function () {
-       var div_online = '<div id="online_div"><p>Вы онлайн</p><button type="submit" class="btn btn-primary" id="chmyDiv2">поменять</button></div>';
-       $('.hero-unit').html(div_online);
-       console.log("q");
+
 
        // $(this).replaceWith('<div id="price"><h1>жертва</h1><button type="submit" class="btn btn-primary">Захотеть</button></div>');
     });
