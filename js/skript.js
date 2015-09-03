@@ -6,49 +6,52 @@ $(document).ready(function(){
     var my_reason= "";
     var my_hedge= "";
     var my_price= "";
-    var step="1";
+    var step=1;
 
 
     console.log("qqq");
 $("#chmyDiv1").click(function () {
   var div_online = '<div id="online_div"><p>Вы онлайн</p><button type="submit" class="btn btn-primary" id="chmyDiv2">поменять</button></div>';
        $('.hero-unit').html(div_online);
-       console.log("q");
+       step=step+1;
+    console.log(step);
+
      });
 
 if(step===1){
     $("#chmyDiv2").click(function () {
         var div_wish = '<div id="wish_div"><h1>Привет!</h1> <p>Пришло время загадать своё первое желание!</p><input type="text" id="wishInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toreason" >Захотеть &raquo;</button></div>';
         $('.hero-unit').html(div_wish);
-        console.log("w");
+        step=step+1;
+        console.log(step);
     });
 }
-else{
+
     if(step===2){
        $("#toreason").click(function () {
            var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="tohedge" >Захотеть &raquo;</button></div>';
            $('.hero-unit').html(div_reason);
-           console.log("e");
+           step=step+1;
+           console.log(step);
        });
     }
-    else{
+
         if(step===3){
             $("#tohedge").click(function () {
                 var div_hedge = '<div><h1>преграда</h1><input type="text" id="hedgeInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
                 $('.hero-unit').html(div_reason);
-                console.log("r");
+                step=step+1;
+                console.log(step);
             });
         }
-
         else{
            $("#toprice").click(function () {
                var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
                $('.hero-unit').html(div_reason);
                console.log("t");
+               step=step+1;
             });
         }
-    }
-};
 });
 
        // $(this).replaceWith('<div id="price"><h1>жертва</h1><button type="submit" class="btn btn-primary">Захотеть</button></div>');
