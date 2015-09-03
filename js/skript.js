@@ -7,13 +7,13 @@ $(document).ready(function(){
     var my_hedge= "";
     var my_price= "";
 
-
+/*
     console.log("qqq");
 $("#chmyDiv1").click(function () {
   var div_online = '<div id="online_div"><p>Вы онлайн</p><button type="submit" class="btn btn-primary" id="chmyDiv2">поменять</button></div>';
        $('.hero-unit').html(div_online);
        console.log("q");
-     });
+     });*/
 
 if(step===1){
     $("#chmyDiv2").click(function () {
@@ -25,27 +25,28 @@ if(step===1){
 else{
     if(step===2){
        $("#toreason").click(function () {
-       var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="tohedge" >Захотеть &raquo;</button></div>';
-       $('.hero-unit').html(div_reason);
-       console.log("e");
+           var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="tohedge" >Захотеть &raquo;</button></div>';
+           $('.hero-unit').html(div_reason);
+           console.log("e");
        });
     }
     else{
         if(step===3){
             $("#tohedge").click(function () {
-            var div_hedge = '<div><h1>преграда</h1><input type="text" id="hedgeInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
-       $('.hero-unit').html(div_reason);
-       console.log("r");
+                var div_hedge = '<div><h1>преграда</h1><input type="text" id="hedgeInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
+                $('.hero-unit').html(div_reason);
+                console.log("r");
             });
-        });
-
-
-       $("#toprice").click(function () {
-       var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
-       $('.hero-unit').html(div_reason);
-       console.log("t");
-    });
-    }
+        }
+        }
+        else{
+           $("#toprice").click(function () {
+               var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
+               $('.hero-unit').html(div_reason);
+               console.log("t");
+            });
+        }
+}
 
 
        // $(this).replaceWith('<div id="price"><h1>жертва</h1><button type="submit" class="btn btn-primary">Захотеть</button></div>');
@@ -185,4 +186,4 @@ else{
 
 
 
-});
+
