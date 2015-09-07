@@ -1,8 +1,6 @@
 $(document).ready(function(){
     var DataRef = new Firebase('https://iwish.firebaseio.com/wishes');
-    var myobject = {attr2:'', attr3:'', attr4:''};
-    var mywish = '';
-
+    var myobject = {attr1:'', attr2:'', attr3:'', attr4:''};
     var count = 0;
     var div1 = '<div id="one"><input type="text" id="text1" placeholder="wish"><button type="submit" id="btn1">add wish</button></div>';
     var div2 = '<div id="two"><input type="text" id="text2" placeholder="reason"><button type="submit" id="btn2">add reason</button><button type="submit" id="next">next</button></div><div id="list"></div>';
@@ -12,41 +10,22 @@ $(document).ready(function(){
     myobject.addattr = function(tt) {
        var localcount = count + 1;
        count = localcount;
-       var comma = '';
    	       if (next_div === div1){
-           mywish = tt;
+           myobject.attr1 = tt;
            next_div = div2;
            $('#container').html(next_div);
        	   count = 0;
        }
        else if (next_div === div2){
-            if(count > 1){
-           	comma = '",';
-          	}
-            else{
-            comma = '"';
-            }
-       		myobject.attr2 = myobject.attr2 + '"reason' + count + '":"' + tt + comma;
+       		myobject.attr2 = myobject.attr2 + '"reason' + count + '":"' + tt + '",';
             $('#list').html(myobject.attr2);
        }
        else if (next_div === div3){
-            if(count > 1){
-           	comma = '",';
-          	}
-            else{
-            comma = '"';
-            }
-       		myobject.attr3 = myobject.attr3 + '"hedge' + count + '":"' + tt + comma;
+       		myobject.attr3 = myobject.attr3 + '"hedge' + count + '":"' + tt + '",';
             $('#list').html(myobject.attr3);
        }
        else if (next_div === div4){
-            if(count > 1){
-           	comma = '",';
-          	}
-            else{
-            comma = '"';
-            }
-       		myobject.attr4 = myobject.attr4 + '"price' + count + '":"' + tt + comma;
+       		myobject.attr4 = myobject.attr4 + '"price' + count + '":"' + tt + '",';
             $('#list').html(myobject.attr4);
        }
 
@@ -56,8 +35,7 @@ $(document).ready(function(){
     $('#container').on('click', '#btn1', function(){
        var text = $('#text1').val();
        myobject.addattr(text);
-       $('#btn1').remove();
-       $('#text1').remove();
+
     });
     $('#container').on('click', '#btn2', function(){
        var text = $('#text2').val();
@@ -77,23 +55,33 @@ $(document).ready(function(){
     $('#container').on('click', '#next', function(){
        if(next_div === div2){
            next_div = div3;
-           myobject.attr2.slice(0, -1);
+       var str = myobject.attr2;
+	   str = str.substring(0,str.length - 1 );
+       myobject.attr2 = str;
        }
        else if(next_div === div3){
            next_div = div4;
-           myobject.attr3.slice(0, -1);
+           var str = myobject.attr3;
+	       str = str.substring(0,str.length - 1 );
+           myobject.attr3 = str;
        }
        $('#container').html(next_div);
        count = 0;
        });
 
        $('#container').on('click', '#finish', function(){
-      	  var usersRef = DataRef.child(mywish);
-          myobject.attr4.slice(0, -1);
+      	  var usersRef = DataRef.child(myobject.attr1);
+          var str = myobject.attr4;
+	      str = str.substring(0,str.length - 1 );
+          myobject.attr4 = str;
           console.log(myobject);
-          var testext = {"heges" : {"hege1" : "hege1text","hege2" : "hege2text"},"prices" : {"price1" : "pricetext","price2" : "price2text"},"reasons": {"reason1" : "reasontext","reason2" : "reason2text"}};
+          var x = myobject.attr2;
+          var y = myobject.attr3;
+          var z = myobject.attr4;
+          console.log(x);
+          var testext = {"heges" : {x},"prices" : {y},"reasons": {z}};
           usersRef.set(testext);
-        $('#list').html('');
+        $('#list').html(myobject.attr1);
         $('#list2').html("ваши причины:" + " " + myobject.attr2);
          $('#list3').html("ваши преграды:" + " " + myobject.attr3);
             $('#list4').html("ваши жертвы:" + " " + myobject.attr4);
