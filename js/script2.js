@@ -6,7 +6,7 @@ $(document).ready(function(){
     var count = 0;
     var div1 = '<div id="one"><input type="text" id="text1" placeholder="wish"><button type="submit" id="btn1">add wish</button></div>';
     var div2 = '<div id="two"><input type="text" id="text2" placeholder="reason"><button type="submit" id="btn2">add reason</button><button type="submit" id="next">next</button></div><div id="list"></div>';
-    var div3 = '<div id="three"><input type="text" id="text3" placeholder="hedge"><button type="submit" id="btnhedges">add3</button><button type="submit" id="next">next</button></div><div id="list"></div>';
+    var div3 = '<div id="three"><input type="text" id="text3" placeholder="hedge"><button type="submit" id="btn3">add3</button><button type="submit" id="next">next</button></div><div id="list"></div>';
     var div4 = '<div id="four"><input type="text" id="text4" placeholder="piece""><button type="submit" id="btn4">add prices</button><button type="submit" id="finish">finish</button></div><div id="list"></div>';
     var next_div = div1;
     myobject.addattr = function(tt) {
