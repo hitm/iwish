@@ -75,12 +75,9 @@ $(document).ready(function(){
 	      str = str.substring(0,str.length - 1 );
           myobject.attr4 = str;
           console.log(myobject);
-          var x = myobject.attr2;
-          var y = myobject.attr3;
-          var z = myobject.attr4;
-          console.log(x);
-          var testext = {"heges" : {x},"prices" : {y},"reasons": {z}};
-          usersRef.set(testext);
+          var x = 'text';
+          var testext = {"heges" : {"hege1" : x,"hege2" : "hege2text"},"prices" : {"price1" : "pricetext","price2" : "price2text"},"reasons": {"reason1" : "reasontext","reason2" : "reason2text"}};
+           usersRef.set(testext);
         $('#list').html(myobject.attr1);
         $('#list2').html("ваши причины:" + " " + myobject.attr2);
          $('#list3').html("ваши преграды:" + " " + myobject.attr3);
