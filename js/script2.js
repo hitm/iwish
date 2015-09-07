@@ -16,7 +16,7 @@ $(document).ready(function(){
    	       if (next_div === div1){
            mywish = tt;
            next_div = div2;
-           $('#field').html(next_div);
+           $('#container').html(next_div);
        	   count = 0;
        }
        else if (next_div === div2){
@@ -51,30 +51,30 @@ $(document).ready(function(){
        }
 
 	   }
-    $('#field').html(div1);
+    $('#container').html(div1);
 
-    $('#field').on('click', '#btn1', function(){
+    $('#container').on('click', '#btn1', function(){
        var text = $('#text1').val();
        myobject.addattr(text);
        $('#btn1').remove();
        $('#text1').remove();
     });
-    $('#field').on('click', '#btn2', function(){
+    $('#container').on('click', '#btn2', function(){
        var text = $('#text2').val();
        myobject.addattr(text);
        $('#text2').val('');
     });
-    $('#field').on('click', '#btn3', function(){
+    $('#container').on('click', '#btn3', function(){
        var text = $('#text3').val();
        myobject.addattr(text);
        $('#text3').val('');
     });
-    $('#field').on('click', '#btn4', function(){
+    $('#container').on('click', '#btn4', function(){
        var text = $('#text4').val();
        myobject.addattr(text);
        $('#text4').val('');
     });
-    $('#field').on('click', '#next', function(){
+    $('#container').on('click', '#next', function(){
        if(next_div === div2){
            next_div = div3;
            myobject.attr2.slice(0, -1);
@@ -83,11 +83,11 @@ $(document).ready(function(){
            next_div = div4;
            myobject.attr3.slice(0, -1);
        }
-       $('#field').html(next_div);
+       $('#container').html(next_div);
        count = 0;
        });
 
-       $('#field').on('click', '#finish', function(){
+       $('#container').on('click', '#finish', function(){
       	  var usersRef = DataRef.child(mywish);
           myobject.attr4.slice(0, -1);
           console.log(myobject);
