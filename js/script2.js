@@ -93,7 +93,7 @@ $(document).ready(function(){
           console.log(myobject);
           var testext = {"heges" : {"hege1" : "hege1text","hege2" : "hege2text"},"prices" : {"price1" : "pricetext","price2" : "price2text"},"reasons": {"reason1" : "reasontext","reason2" : "reason2text"}};
           usersRef.set(testext);
-        $('#list').html();
+        $('#list').html('');
         $('#list2').html("ваши причины:" + " " + myobject.attr2);
          $('#list3').html("ваши преграды:" + " " + myobject.attr3);
             $('#list4').html("ваши жертвы:" + " " + myobject.attr4);
