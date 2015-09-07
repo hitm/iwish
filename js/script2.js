@@ -7,7 +7,7 @@ $(document).ready(function(){
     var div1 = '<div id="one"><input type="text" id="text1" placeholder="wish"><button type="submit" id="btn1">add wish</button></div>';
     var div2 = '<div id="two"><input type="text" id="text2" placeholder="reason"><button type="submit" id="btn2">add reason</button><button type="submit" id="next">next</button></div><div id="list"></div>';
     var div3 = '<div id="three"><input type="text" id="text3" placeholder="hedge"><button type="submit" id="btn3">add3</button><button type="submit" id="next">next</button></div><div id="list"></div>';
-    var div4 = '<div id="four"><input type="text" id="text4" placeholder="piece""><button type="submit" id="btn4">add prices</button><button type="submit" id="finish">finish</button></div><div id="list"></div>';
+    var div4 = '<div id="four"><input type="text" id="text4" placeholder="piece""><button type="submit" id="btn4">add prices</button><button type="submit" id="finish">finish</button></div><div id="list"></div><div id="list2"></div><div id="list3"></div><div id="list4"></div>';
     var next_div = div1;
     myobject.addattr = function(tt) {
        var localcount = count + 1;
@@ -93,6 +93,9 @@ $(document).ready(function(){
           console.log(myobject);
           var testext = {"heges" : {"hege1" : "hege1text","hege2" : "hege2text"},"prices" : {"price1" : "pricetext","price2" : "price2text"},"reasons": {"reason1" : "reasontext","reason2" : "reason2text"}};
           usersRef.set(testext);
+        $('#list2').html(myobject.attr2);
+         $('#list3').html(myobject.attr3);
+            $('#list4').html(myobject.attr4);
    	   });
 
 });
