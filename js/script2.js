@@ -71,15 +71,27 @@ $(document).ready(function(){
 
        $('#container').on('click', '#finish', function(){
       	  var usersRef = DataRef.child(myobject.attr1);
-          var str = myobject.attr4;
-	      str = str.substring(0,str.length - 1 );
-          myobject.attr4 = str;
-          console.log(myobject);
-          var reasons = '{' + myobject.attr4  + '}';
-          console.log(reasons);
-          var json_string = JSON.parse( reasons );
-          console.log(json_string);
-          var testext = {"heges" : json_string,"prices" : {"price1" : "pricetext","price2" : "price2text"},"reasons": {"reason1" : "reasontext","reason2" : "reason2text"}};
+       var str = myobject.attr4;
+	    str = str.substring(0,str.length - 1 );
+         myobject.attr4 = str;
+        console.log(myobject);
+
+    //      var wishes  = '{' + myobject.attr1  + '}';
+     //     var json_wishes = JSON.parse( wishes );
+          var reasons = '{' + myobject.attr2  + '}';
+          var json_reasons = JSON.parse( reasons );
+          var hedges  = '{' + myobject.attr3  + '}';
+          var json_hedges = JSON.parse( hedges );
+          var prises  = '{' + myobject.attr4  + '}';
+          var json_prises = JSON.parse( prises );
+    //      console.log(json_wishes);
+           console.log(json_reasons);
+          console.log(json_hedges);
+            console.log(json_prises);
+
+         var json_string = JSON.parse( reasons );
+
+          var testext = {"heges" : json_hedges,"prices" : json_prises,"reasons": json_reasons };
            usersRef.set(testext);
         $('#list').html(myobject.attr1);
         $('#list2').html("ваши причины:" + " " + myobject.attr2);
