@@ -48,25 +48,25 @@ $(document).ready(function () {
         var text = $('#text1').val();
         myobject.addattr(text);
     });
-//    функция отправки причины
+//    функция добавления причины
     $('#container').on('click', '#btn2', function () {
         var text = $('#text2').val();
         myobject.addattr(text);
         $('#text2').val('');
     });
-//    функция отправки проблемы
+//    функция добавления проблемы
     $('#container').on('click', '#btn3', function () {
         var text = $('#text3').val();
         myobject.addattr(text);
         $('#text3').val('');
     });
-//    функция отправки жертвы
+//    функция добавления жертвы
     $('#container').on('click', '#btn4', function () {
         var text = $('#text4').val();
         myobject.addattr(text);
         $('#text4').val('');
     });
-
+//    функция отправки причины и проблемы
     $('#container').on('click', '#next', function () {
         if (next_div === div2) {
             next_div = div3;
@@ -82,7 +82,7 @@ $(document).ready(function () {
         $('#container').html(next_div);
         count = 0;
     });
-
+//    функция отправки жертвы
     $('#container').on('click', '#finish', function () {
         var usersRef = DataRef.child(myobject.attr1);
         var str = myobject.attr4;
@@ -129,7 +129,7 @@ $(document).ready(function () {
 
 
 
-    /*
+
 
 
         $("#container").on("click", '#btnreg', function () {
@@ -167,6 +167,5 @@ $(document).ready(function () {
             });
         });
 
-    */
 
 });
