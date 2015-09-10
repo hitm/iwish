@@ -139,7 +139,7 @@ $(document).ready(function () {
         });
     });
 
-    //    функция входа
+    //    функция входS
     $("#container").on("click", '#btnlog', function () {
         $('#forspin').html(spiner);
         console.log("попытка входа");
