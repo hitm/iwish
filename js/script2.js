@@ -6,6 +6,49 @@ $(document).ready(function () {
         attr3: '',
         attr4: ''
     };
+
+//   $scope.articles = sync.$asArray();
+//    console.log(snapshot.key());
+
+
+  DataRef.once("value", function(snapshot) {
+  var nameSnapshot = snapshot.child(151);
+  var name = nameSnapshot.val();
+  // name === { first: "Fred", last: "Flintstone"}
+  var firstNameSnapshot = snapshot.child("151/heges");
+  var firstName = firstNameSnapshot.val();
+  // firstName === "Fred"
+  //var lastNameSnapshot = snapshot.child("name").child("last");
+ // var lastName = lastNameSnapshot.val();
+  // lastName === "Flintstone"
+ // var ageSnapshot = snapshot.child("age");
+ // var age = ageSnapshot.val();
+  // age === null (because there is no "age" child in the data snapshot)
+ console.log(name);
+ console.log(firstName);
+});
+
+
+
+ //   DataRef.on("value", function(snapshot) {
+ // console.log(snapshot.val());
+//}, function (errorObject) {
+ // console.log("The read failed: " + errorObject.code);
+//});
+    /*
+DataRef.orderByChild("reasons").equalTo(1).on("child_added", function(snapshot) {
+  console.log(snapshot.val());
+});
+
+DataRef.orderByValue("wishes").equalTo(1).limitToLast(3).on("value", function(snapshot) {
+  snapshot.forEach(function(data) {
+    console.log("The " + data.key() + " dinosaur's score is " + data.val());
+  });
+});
+
+DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) {
+  console.log(snapshot.key())
+});*/
     var count = 0;
     var div1 = '<div id="one"><input type="text" id="text1" placeholder="wish"><button type="submit" id="btn1">add wish</button></div>';
     var div2 = '<div id="two"><input type="text" id="text2" placeholder="reason"><button type="submit" id="btn2">add reason</button><button type="submit" id="next">next</button></div><div id="list"></div>';

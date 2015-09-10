@@ -85,6 +85,28 @@
         </div>
 
     </div>
+    <p id="vasha_citata">Здесь будет показана случайная цитата.</p>
+<script type="text/javascript">
+function sluchaynaya_citata() {
+  // Массив, который содержит цитаты-строки:
+  var citati = [
+    '123',
+    'йцу',
+    'фыв',
+    'ячс'
+  ];
+
+  // Генерация случайного номера для выборки из массива citati:
+  var nomer = Math.round(Math.random() * (citati.length-1));
+
+  // Возвращаем строку:
+  return citati[nomer];
+}
+
+document.getElementById("vasha_citata").innerHTML = sluchaynaya_citata();
+</script>
+
+
     <!-- /container -->
 
     <!-- Le javascript
