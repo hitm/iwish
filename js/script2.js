@@ -85,7 +85,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
                 $('#login').html(div5);
             }
         }
-        //    записываем в контейнер желание
+        //    записываем в контейнер желан ие
 
         if (!cooki === null){
             $('#container').html(div1);
