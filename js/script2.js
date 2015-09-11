@@ -17,6 +17,7 @@ $(document).ready(function () {
     var div6 = '<div id="success">Success!</div>';
     var spiner = '<div><i class="fa fa-spinner fa-lg fa-spin"></i></div>';
     var next_div = div1;
+    var div_userpage = 'text';
         myobject.addattr = function (tt) {
             var localcount = count + 1;
             count = localcount;
