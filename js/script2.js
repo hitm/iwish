@@ -54,7 +54,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
     var div2 = '<div id="two"><input type="text" id="text2" placeholder="reason"><button type="submit" id="btn2">add reason</button><button type="submit" id="next">next</button></div><div id="list"></div>';
     var div3 = '<div id="three"><input type="text" id="text3" placeholder="hedge"><button type="submit" id="btn3">add3</button><button type="submit" id="next">next</button></div><div id="list"></div>';
     var div4 = '<div id="four"><input type="text" id="text4" placeholder="piece""><button type="submit" id="btn4">add prices</button><button type="submit" id="finish">finish</button></div><div id="list"></div><div id="list2"></div><div id="list3"></div><div id="list4"></div><div id="login"></div>';
-    var div5 = '<div id="five"><input type="email" class="form-control" id="email" placeholder="Email address" required autofocus><input type="password" class="form-control" id="pass" placeholder="Password" required> <br><div id=forspin></div><label class="checkbox"><br><input type="checkbox" value="remember-me"> Remember me</label><br><button class="btn btn-lg btn-primary btn-block" id="btnreg">register</button><br><button class="btn btn-lg btn-primary btn-block" id="btnlog">login</button><br></div>';
+    var div5 = '<div id="five"><input type="email" class="form-control" id="email" placeholder="Email address" required autofocus><input type="password" class="form-control" id="pass" placeholder="Password" required> <br><div id=forspin></div><label class="checkbox"><br><input type="checkbox" class="myCheckbox" value="remember-me"> Remember me</label><br><button class="btn btn-lg btn-primary btn-block" id="btnreg">register</button><br><button class="btn btn-lg btn-primary btn-block" id="btnlog">login</button><br></div>';
     var div6 = '<div id="success">Success!</div>';
     var spiner = '<div><i class="fa fa-spinner fa-lg fa-spin"></i></div>';
 
@@ -198,7 +198,11 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
             } else {
                 console.log("Authenticated successfully with payload:", authData);
                 console.log(authData.uid);
+                var remember = $('.myCheckbox').prop('checked');
+                console.log(remember);
+                //$.cookie(
             }
         });
     });
 });
+
