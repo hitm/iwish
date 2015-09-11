@@ -6,6 +6,8 @@ $(document).ready(function () {
         attr3: '',
         attr4: ''
     };
+    var cooki = $.cookie('userId');
+    console.log(cooki);
     var count = 0;
     var div1 = '<div id="one"><input type="text" id="text1" placeholder="wish"><button type="submit" id="btn1">add wish</button></div>';
     var div2 = '<div id="two"><input type="text" id="text2" placeholder="reason"><button type="submit" id="btn2">add reason</button><button type="submit" id="next">next</button></div><div id="list"></div>';
@@ -14,9 +16,8 @@ $(document).ready(function () {
     var div5 = '<div id="five"><input type="email" class="form-control" id="email" placeholder="Email address" required autofocus><input type="password" class="form-control" id="pass" placeholder="Password" required> <br><div id=forspin></div><label class="checkbox"><br><input type="checkbox" class="myCheckbox" value="remember-me"> Remember me</label><br><button class="btn btn-lg btn-primary btn-block" id="btnreg">register</button><br><button class="btn btn-lg btn-primary btn-block" id="btnlog">login</button><br></div>';
     var div6 = '<div id="success">Success!</div>';
     var spiner = '<div><i class="fa fa-spinner fa-lg fa-spin"></i></div>';
-
     var next_div = div1;
-    myobject.addattr = function (tt) {
+        myobject.addattr = function (tt) {
             var localcount = count + 1;
             count = localcount;
             if (next_div === div1) {
@@ -36,12 +37,15 @@ $(document).ready(function () {
             } else if (next_div === div5) {
                 $('#login').html(div5);
             }
-
-
         }
         //    записываем в контейнер желание
-    $('#container').html(div1);
 
+        if (!cooki === null){
+            $('#container').html(div1);
+        }
+        else{
+            $('#container').html(div_userpage);
+        }
     //    функция отправки желания
     $('#container').on('click', '#btn1', function () {
         var text = $('#text1').val();
@@ -157,7 +161,10 @@ $(document).ready(function () {
                 console.log(authData.uid);
                 var remember = $('.myCheckbox').prop('checked');
                 console.log(remember);
-                //$.cookie(
+                    if (remember === true){
+                        $.cookie('userId', authData.uid);
+                    }
+                else{};
             }
         });
     });
