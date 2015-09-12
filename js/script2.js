@@ -51,8 +51,8 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
   console.log(snapshot.key())
 });*/
 
-    var cooki = $.cookie('userId');
-    console.log(cooki);
+//    var cooki = $.cookie('userId');
+//    console.log(cooki);
 
     var count = 0;
     var div1 = '<div id="one"><input type="text" id="text1" placeholder="wish"><button type="submit" id="btn1">add wish</button></div>';
@@ -63,7 +63,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
     var div6 = '<div id="success">Success!</div>';
     var spiner = '<div><i class="fa fa-spinner fa-lg fa-spin"></i></div>';
     var next_div = div1;
-    var div_userpage = '<button class="btn btn-lg btn-primary btn-block" id="delkoocies">login</button>';
+    var div_userpage = '<button class="btn" id="delkoocies">del</button>';
         myobject.addattr = function (tt) {
             var localcount = count + 1;
             count = localcount;
@@ -86,14 +86,16 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
             }
         }
         //    записываем в контейнер желан ие
-
-        if (!cooki === null){
-            $('#container').html(div1);
-        }
-        else{
-            $('#container').html(div_userpage);
-        }
-
+//
+//        if ($.cookie('userId') == null){
+//            console.log('nokuki');
+//            $('#container').html(div1);
+//        }
+//        else{
+//            console.log('yeskuki');
+//            $('#container').html(div_userpage);
+//        }
+          $('#container').html(div1);
     //    функция отправки желания
     $('#container').on('click', '#btn1', function () {
         var text = $('#text1').val();
