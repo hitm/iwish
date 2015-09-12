@@ -87,12 +87,13 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
         }
         //    записываем в контейнер желан ие
 
-        if (!cooki === null){
-            $('#container').html(div1);
-        }
-        else{
-            $('#container').html(div_userpage);
-        }
+//        if (!cooki === null){
+  //          $('#container').html(div1);
+    //    }
+      //  else{
+        //    $('#container').html(div_userpage);
+        //}
+
     //    функция отправки желания
     $('#container').on('click', '#btn1', function () {
         var text = $('#text1').val();
