@@ -93,6 +93,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
       //  else{
         //    $('#container').html(div_userpage);
         //}
+        $('#container').html(div1);
 
     //    функция отправки желания
     $('#container').on('click', '#btn1', function () {
