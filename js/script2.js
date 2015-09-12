@@ -6,7 +6,7 @@ $(document).ready(function () {
         attr3: '',
         attr4: ''
     };
-<<<<<<< HEAD
+
 
 //   $scope.articles = sync.$asArray();
 //    console.log(snapshot.key());
@@ -50,10 +50,10 @@ DataRef.orderByValue("wishes").equalTo(1).limitToLast(3).on("value", function(sn
 DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) {
   console.log(snapshot.key())
 });*/
-=======
+
     var cooki = $.cookie('userId');
     console.log(cooki);
->>>>>>> iWish/master
+
     var count = 0;
     var div1 = '<div id="one"><input type="text" id="text1" placeholder="wish"><button type="submit" id="btn1">add wish</button></div>';
     var div2 = '<div id="two"><input type="text" id="text2" placeholder="reason"><button type="submit" id="btn2">add reason</button><button type="submit" id="next">next</button></div><div id="list"></div>';
