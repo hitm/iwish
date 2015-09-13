@@ -87,7 +87,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
         }
 
         var createuserpage = function(name, wishes, otherswishes){
-        var
+        var name = '';
 
         };
 
