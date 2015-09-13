@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var DataRef = new Firebase('https://iwish.firebaseio.com/wishes');
+    var UserDataRef = new Firebase('https://iwish.firebaseio.com/users');
     var myobject = {
         attr1: '',
         attr2: '',
@@ -59,11 +60,11 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
     var div2 = '<div id="two"><input type="text" id="text2" placeholder="reason"><button type="submit" id="btn2">add reason</button><button type="submit" id="next">next</button></div><div id="list"></div>';
     var div3 = '<div id="three"><input type="text" id="text3" placeholder="hedge"><button type="submit" id="btn3">add3</button><button type="submit" id="next">next</button></div><div id="list"></div>';
     var div4 = '<div id="four"><input type="text" id="text4" placeholder="piece""><button type="submit" id="btn4">add prices</button><button type="submit" id="finish">finish</button></div><div id="list"></div><div id="list2"></div><div id="list3"></div><div id="list4"></div><div id="login"></div>';
-    var div5 = '<div id="five"><input type="email" class="form-control" id="email" placeholder="Email address" required autofocus><input type="password" class="form-control" id="pass" placeholder="Password" required> <br><div id=forspin></div><label class="checkbox"><br><input type="checkbox" class="myCheckbox" value="remember-me"> Remember me</label><br><button class="btn btn-lg btn-primary btn-block" id="btnreg">register</button><br><button class="btn btn-lg btn-primary btn-block" id="btnlog">login</button><br></div>';
+    var div5 = '<div id="five"><input type="text" id="nickname" placeholder="nickname"><input type="email" class="form-control" id="email" placeholder="Email address" required autofocus><input type="password" class="form-control" id="pass" placeholder="Password" required> <br><div id=forspin></div><label class="checkbox"><br><input type="checkbox" class="myCheckbox" value="remember-me"> Remember me</label><br><button class="btn btn-lg btn-primary btn-block" id="btnreg">register</button><br><button class="btn btn-lg btn-primary btn-block" id="btnlog">login</button><br></div>';
     var div6 = '<div id="success">Success!</div>';
     var spiner = '<div><i class="fa fa-spinner fa-lg fa-spin"></i></div>';
     var next_div = div1;
-    var div_userpage = '<button class="btn" id="delkoocies">del</button>';
+    var div_userpage = '<div class="div_userpage"><div id="user_info" class="col-md-12"><div id="avatar" class="col-md-2"><img src="http://lorempixel.com//100/150/people"></div><div id= "userhead" class="col-md-9"><h1>user_name</h1><p>user_info</p><p>user_info</p></div><div id="rank" class="col-md-1"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"></div></div><div id="my_wishes" class="col-md-6"><h1>my_wishes</h1><div id="accordeon" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><span><h3 class="panel-title"><a href="#collapse-1" data-parent="#accordeon" data-toggle="collapse">открыть 1 слайд</a></h3></span></div><div id="collapse-1" class="panel-collapse collapse"><div class="panel-body"><p>1ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-2" data-parent="#accordeon" data-toggle="collapse">открыть 2 слайд</a></h3></div><div id="collapse-2" class="panel-collapse collapse"><div class="panel-body"><p>2ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-3" data-parent="#accordeon" data-toggle="collapse">открыть 3 слайд</a></h3></div><div id="collapse-3" class="panel-collapse collapse"><div class="panel-body"><p>3ыыыыыыыыыыыыыыыы</p></div></div></div></div></div><div class = "wish"><span></div></div><div id="others_wishes" class="col-md-6"><h1>other_wishes</h1><div id="accordeon2" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-4" data-parent="#accordeon2" data-toggle="collapse">открыть 1 слайд</a></h3></div><div id="collapse-4" class="panel-collapse collapse"><div class="panel-body"><p>1ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-5" data-parent="#accordeon2" data-toggle="collapse">открыть 2 слайд</a></h3></div><div id="collapse-5" class="panel-collapse collapse"><div class="panel-body"><p>2ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-6" data-parent="#accordeon2" data-toggle="collapse">открыть 3 слайд</a></h3></div><div id="collapse-6" class="panel-collapse collapse"><div class="panel-body"><p>3ыыыыыыыыыыыыыыыы</p></div></div></div></div></div></div>';
         myobject.addattr = function (tt) {
             var localcount = count + 1;
             count = localcount;
@@ -178,6 +179,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
         console.log("начало регистрации");
         var email = $('#email').val();
         var password = $('#pass').val();
+        var name = $('#nickname').val();
         DataRef.createUser({
             email: email,
             password: password
@@ -188,7 +190,16 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
             if (error) {
                 console.log("Error creating user:", error);
             } else {
+                var remember = $('.myCheckbox').prop('checked');
                 console.log("Successfully created user account with uid:", userData.uid);
+                UserDataRef.child(name).set({id: userData.uid});
+                if (remember === true){
+                    $.cookie('userId', authData.uid);
+
+                    }
+                else{};
+
+
             }
         });
     });
@@ -221,5 +232,12 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
      $('#container').on('click', '#delkoocies', function () {
         $.cookie('userId', null);
      });
+    $('.container').on('click', '#userpage', function () {
+        console.log('actionklick');
+        $('#container').html(div_userpage);
+    });
+
+
+
 });
 
