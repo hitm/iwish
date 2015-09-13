@@ -7,7 +7,7 @@ $(document).ready(function () {
         attr3: '',
         attr4: ''
     };
-
+    var cookie = $.cookie('userId');
 
     //   $scope.articles = sync.$asArray();
     //    console.log(snapshot.key());
@@ -72,8 +72,6 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
 
 
 
-
-
     var createuserpage = function (id) {
         UserDataRef.once("value", function (snapshot) {
             var idSnapshot = snapshot.child(id);
@@ -84,7 +82,8 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
     };
 
     $('.navbar').on('click', '#testbutton', function () {
-        createuserpage('576dcb51-d4f3-484e-a17f-c6ca94720ad5');
+        createuserpage(cookie);
+
     });
 
 
@@ -198,7 +197,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
                     name: name
                 });
                 if (remember === true) {
-                    $.cookie('userId', authData.uid);
+                    $.cookie('userId', userData.uid);
 
                 } else {};
 
@@ -222,11 +221,12 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
                 console.log("Login Failed!", error);
             } else {
                 console.log("Authenticated successfully with payload:", authData);
+                cookie=authData.uid;
                 console.log(authData.uid);
                 var remember = $('.myCheckbox').prop('checked');
                 console.log(remember);
                 if (remember === true) {
-                    $.cookie('userId', authData.uid);
+                    $.cookie('userId', cookie);
                 } else {};
             }
         });
@@ -244,6 +244,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
         next_div = div1;
         $.cookie('userId', null);
         $('#container').html(next_div);
+        cookie=null;
     });
 
 
