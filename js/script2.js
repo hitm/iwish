@@ -66,8 +66,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
     var next_div = div1;
     var div_userpage = '<div class="div_userpage"><div id="user_info" class="col-md-12"><div id="avatar" class="col-md-2"><img src="http://lorempixel.com//100/150/people"></div><div id= "userhead" class="col-md-9"><h1>user_name</h1><p>user_info</p><p>user_info</p></div><div id="rank" class="col-md-1"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"></div></div><div id="my_wishes" class="col-md-6"><h1>my_wishes</h1><div id="accordeon" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><span><h3 class="panel-title"><a href="#collapse-1" data-parent="#accordeon" data-toggle="collapse">открыть 1 слайд</a></h3></span></div><div id="collapse-1" class="panel-collapse collapse"><div class="panel-body"><p>1ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-2" data-parent="#accordeon" data-toggle="collapse">открыть 2 слайд</a></h3></div><div id="collapse-2" class="panel-collapse collapse"><div class="panel-body"><p>2ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-3" data-parent="#accordeon" data-toggle="collapse">открыть 3 слайд</a></h3></div><div id="collapse-3" class="panel-collapse collapse"><div class="panel-body"><p>3ыыыыыыыыыыыыыыыы</p></div></div></div></div></div><div class = "wish"><span></div></div><div id="others_wishes" class="col-md-6"><h1>other_wishes</h1><div id="accordeon2" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-4" data-parent="#accordeon2" data-toggle="collapse">открыть 1 слайд</a></h3></div><div id="collapse-4" class="panel-collapse collapse"><div class="panel-body"><p>1ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-5" data-parent="#accordeon2" data-toggle="collapse">открыть 2 слайд</a></h3></div><div id="collapse-5" class="panel-collapse collapse"><div class="panel-body"><p>2ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-6" data-parent="#accordeon2" data-toggle="collapse">открыть 3 слайд</a></h3></div><div id="collapse-6" class="panel-collapse collapse"><div class="panel-body"><p>3ыыыыыыыыыыыыыыыы</p></div></div></div></div></div></div>';
         myobject.addattr = function (tt) {
-            var localcount = count + 1;
-            count = localcount;
+            count++;
             if (next_div === div1) {
                 myobject.attr1 = tt;
                 next_div = div2;
@@ -86,6 +85,14 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
                 $('#login').html(div5);
             }
         }
+
+        var createuserpage = function(name, wishes, otherswishes){
+
+
+        }
+
+
+
         //    записываем в контейнер желан ие
 //
 //        if ($.cookie('userId') == null){
@@ -192,7 +199,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
             } else {
                 var remember = $('.myCheckbox').prop('checked');
                 console.log("Successfully created user account with uid:", userData.uid);
-                UserDataRef.child(name).set({id: userData.uid});
+                UserDataRef.child(userData.uid).set({name: name});
                 if (remember === true){
                     $.cookie('userId', authData.uid);
 
@@ -233,7 +240,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
         $.cookie('userId', null);
      });
     $('.navbar').on('click', '#userpage', function () {
-        console.log('actionklick');
+        console.log('усерпаге');
         $('#container').html(div_userpage);
     });
 
