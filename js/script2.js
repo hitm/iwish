@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var DataRef = new Firebase('https://iwish.firebaseio.com/wishes');
+    var UserDataRef = new Firebase('https://iwish.firebaseio.com/users');
     var myobject = {
         attr1: '',
         attr2: '',
@@ -59,7 +60,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
     var div2 = '<div id="two"><input type="text" id="text2" placeholder="reason"><button type="submit" id="btn2">add reason</button><button type="submit" id="next">next</button></div><div id="list"></div>';
     var div3 = '<div id="three"><input type="text" id="text3" placeholder="hedge"><button type="submit" id="btn3">add3</button><button type="submit" id="next">next</button></div><div id="list"></div>';
     var div4 = '<div id="four"><input type="text" id="text4" placeholder="piece""><button type="submit" id="btn4">add prices</button><button type="submit" id="finish">finish</button></div><div id="list"></div><div id="list2"></div><div id="list3"></div><div id="list4"></div><div id="login"></div>';
-    var div5 = '<div id="five"><input type="email" class="form-control" id="email" placeholder="Email address" required autofocus><input type="password" class="form-control" id="pass" placeholder="Password" required> <br><div id=forspin></div><label class="checkbox"><br><input type="checkbox" class="myCheckbox" value="remember-me"> Remember me</label><br><button class="btn btn-lg btn-primary btn-block" id="btnreg">register</button><br><button class="btn btn-lg btn-primary btn-block" id="btnlog">login</button><br></div>';
+    var div5 = '<div id="five"><input type="text" id="nickname" placeholder="nickname"><input type="email" class="form-control" id="email" placeholder="Email address" required autofocus><input type="password" class="form-control" id="pass" placeholder="Password" required> <br><div id=forspin></div><label class="checkbox"><br><input type="checkbox" class="myCheckbox" value="remember-me"> Remember me</label><br><button class="btn btn-lg btn-primary btn-block" id="btnreg">register</button><br><button class="btn btn-lg btn-primary btn-block" id="btnlog">login</button><br></div>';
     var div6 = '<div id="success">Success!</div>';
     var spiner = '<div><i class="fa fa-spinner fa-lg fa-spin"></i></div>';
     var next_div = div1;
@@ -178,6 +179,7 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
         console.log("начало регистрации");
         var email = $('#email').val();
         var password = $('#pass').val();
+        var name = $('#nickname').val();
         DataRef.createUser({
             email: email,
             password: password
@@ -188,7 +190,16 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
             if (error) {
                 console.log("Error creating user:", error);
             } else {
+                var remember = $('.myCheckbox').prop('checked');
                 console.log("Successfully created user account with uid:", userData.uid);
+                UserDataRef.child(name).set({id: userData.uid});
+                if (remember === true){
+                    $.cookie('userId', authData.uid);
+
+                    }
+                else{};
+
+
             }
         });
     });
