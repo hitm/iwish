@@ -9,34 +9,18 @@ $(document).ready(function () {
     };
 
 
-//   $scope.articles = sync.$asArray();
-//    console.log(snapshot.key());
-
-
-  DataRef.once("value", function(snapshot) {
-  var nameSnapshot = snapshot.child(151);
-  var name = nameSnapshot.val();
-  // name === { first: "Fred", last: "Flintstone"}
-  var firstNameSnapshot = snapshot.child("151/heges");
-  var firstName = firstNameSnapshot.val();
-  // firstName === "Fred"
-  //var lastNameSnapshot = snapshot.child("name").child("last");
- // var lastName = lastNameSnapshot.val();
-  // lastName === "Flintstone"
- // var ageSnapshot = snapshot.child("age");
- // var age = ageSnapshot.val();
-  // age === null (because there is no "age" child in the data snapshot)
- console.log(name);
- console.log(firstName);
-});
+    //   $scope.articles = sync.$asArray();
+    //    console.log(snapshot.key());
 
 
 
- //   DataRef.on("value", function(snapshot) {
- // console.log(snapshot.val());
-//}, function (errorObject) {
- // console.log("The read failed: " + errorObject.code);
-//});
+
+
+    //   DataRef.on("value", function(snapshot) {
+    // console.log(snapshot.val());
+    //}, function (errorObject) {
+    // console.log("The read failed: " + errorObject.code);
+    //});
     /*
 DataRef.orderByChild("reasons").equalTo(1).on("child_added", function(snapshot) {
   console.log(snapshot.val());
@@ -52,8 +36,8 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
   console.log(snapshot.key())
 });*/
 
-//    var cooki = $.cookie('userId');
-//    console.log(cooki);
+    //    var cooki = $.cookie('userId');
+    //    console.log(cooki);
 
     var count = 0;
     var div1 = '<div id="one"><input type="text" id="text1" placeholder="wish"><button type="submit" id="btn1">add wish</button></div>';
@@ -65,54 +49,56 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
     var spiner = '<div><i class="fa fa-spinner fa-lg fa-spin"></i></div>';
     var next_div = div1;
     var div_userpage = '<div class="div_userpage"><div id="user_info" class="col-md-12"><div id="avatar" class="col-md-2"><img src="http://lorempixel.com//100/150/people"></div><div id= "userhead" class="col-md-9"><h1>user_name</h1><p>user_info</p><p>user_info</p></div><div id="rank" class="col-md-1"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"></div></div><div id="my_wishes" class="col-md-6"><h1>my_wishes</h1><div id="accordeon" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><span><h3 class="panel-title"><a href="#collapse-1" data-parent="#accordeon" data-toggle="collapse">открыть 1 слайд</a></h3></span></div><div id="collapse-1" class="panel-collapse collapse"><div class="panel-body"><p>1ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-2" data-parent="#accordeon" data-toggle="collapse">открыть 2 слайд</a></h3></div><div id="collapse-2" class="panel-collapse collapse"><div class="panel-body"><p>2ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-3" data-parent="#accordeon" data-toggle="collapse">открыть 3 слайд</a></h3></div><div id="collapse-3" class="panel-collapse collapse"><div class="panel-body"><p>3ыыыыыыыыыыыыыыыы</p></div></div></div></div></div><div class = "wish"><span></div></div><div id="others_wishes" class="col-md-6"><h1>other_wishes</h1><div id="accordeon2" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-4" data-parent="#accordeon2" data-toggle="collapse">открыть 1 слайд</a></h3></div><div id="collapse-4" class="panel-collapse collapse"><div class="panel-body"><p>1ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-5" data-parent="#accordeon2" data-toggle="collapse">открыть 2 слайд</a></h3></div><div id="collapse-5" class="panel-collapse collapse"><div class="panel-body"><p>2ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-6" data-parent="#accordeon2" data-toggle="collapse">открыть 3 слайд</a></h3></div><div id="collapse-6" class="panel-collapse collapse"><div class="panel-body"><p>3ыыыыыыыыыыыыыыыы</p></div></div></div></div></div></div>';
-        myobject.addattr = function (tt) {
-            count++;
-            if (next_div === div1) {
-                myobject.attr1 = tt;
-                next_div = div2;
-                $('#container').html(next_div);
-                count = 0;
-            } else if (next_div === div2) {
-                myobject.attr2 = myobject.attr2 + '"reason' + count + '":"' + tt + '",';
-                $('#list').html(myobject.attr2);
-            } else if (next_div === div3) {
-                myobject.attr3 = myobject.attr3 + '"hedge' + count + '":"' + tt + '",';
-                $('#list').html(myobject.attr3);
-            } else if (next_div === div4) {
-                myobject.attr4 = myobject.attr4 + '"price' + count + '":"' + tt + '",';
-                $('#list').html(myobject.attr4);
-            } else if (next_div === div5) {
-                $('#login').html(div5);
-            }
+    myobject.addattr = function (tt) {
+        count++;
+        if (next_div === div1) {
+            myobject.attr1 = tt;
+            next_div = div2;
+            $('#container').html(next_div);
+            count = 0;
+        } else if (next_div === div2) {
+            myobject.attr2 = myobject.attr2 + '"reason' + count + '":"' + tt + '",';
+            $('#list').html(myobject.attr2);
+        } else if (next_div === div3) {
+            myobject.attr3 = myobject.attr3 + '"hedge' + count + '":"' + tt + '",';
+            $('#list').html(myobject.attr3);
+        } else if (next_div === div4) {
+            myobject.attr4 = myobject.attr4 + '"price' + count + '":"' + tt + '",';
+            $('#list').html(myobject.attr4);
+        } else if (next_div === div5) {
+            $('#login').html(div5);
         }
+    }
 
-        var createuserpage = function(name){
-            var username = name;
-            DataRef.orderByValue().on('value', function(snapshot) {
-                var message = snapshot.val();
-                console.log(message);
-            });
 
-            //       var name = $.cookie('userId', null);
 
-        };
+
+
+    var createuserpage = function (id) {
+        UserDataRef.once("value", function (snapshot) {
+            var idSnapshot = snapshot.child(id);
+            var outid = idSnapshot.val();
+            console.log(outid);
+        });
+
+    };
 
     $('.navbar').on('click', '#testbutton', function () {
-        createuserpage (hitman47);
+        createuserpage('576dcb51-d4f3-484e-a17f-c6ca94720ad5');
     });
 
 
-//     записываем в контейнер желан ие
-//
-//        if ($.cookie('userId') == null){
-//            console.log('nokuki');
-//            $('#container').html(div1);
-//        }
-//        else{
-//            console.log('yeskuki');
-//            $('#container').html(div_userpage);
-//        }
-          $('#container').html(div1);
+    //     записываем в контейнер желан ие
+    //
+    //        if ($.cookie('userId') == null){
+    //            console.log('nokuki');
+    //            $('#container').html(div1);
+    //        }
+    //        else{
+    //            console.log('yeskuki');
+    //            $('#container').html(div_userpage);
+    //        }
+    $('#container').html(div1);
     //    функция отправки желания
     $('#container').on('click', '#btn1', function () {
         var text = $('#text1').val();
@@ -208,12 +194,13 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
             } else {
                 var remember = $('.myCheckbox').prop('checked');
                 console.log("Successfully created user account with uid:", userData.uid);
-                UserDataRef.child(userData.uid).set({name: name});
-                if (remember === true){
+                UserDataRef.child(userData.uid).set({
+                    name: name
+                });
+                if (remember === true) {
                     $.cookie('userId', authData.uid);
 
-                    }
-                else{};
+                } else {};
 
 
             }
@@ -238,16 +225,15 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
                 console.log(authData.uid);
                 var remember = $('.myCheckbox').prop('checked');
                 console.log(remember);
-                    if (remember === true){
-                        $.cookie('userId', authData.uid);
-                    }
-                else{};
+                if (remember === true) {
+                    $.cookie('userId', authData.uid);
+                } else {};
             }
         });
     });
-     $('#container').on('click', '#delkoocies', function () {
+    $('#container').on('click', '#delkoocies', function () {
         $.cookie('userId', null);
-     });
+    });
     $('.navbar').on('click', '#userpage', function () {
         console.log('усерпаге');
         $('#container').html(div_userpage);
@@ -263,4 +249,3 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
 
 
 });
-
