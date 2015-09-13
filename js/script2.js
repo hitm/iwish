@@ -86,11 +86,20 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
             }
         }
 
-        var createuserpage = function(name, wishes, otherswishes){
-        var name = $.cookie('userId', null);
+        var createuserpage = function(name){
+            var username = name;
+            DataRef.orderByValue().on('value', function(snapshot) {
+                var message = snapshot.val();
+                console.log(message);
+            });
+
+            //       var name = $.cookie('userId', null);
 
         };
 
+    $('.navbar').on('click', '#testbutton', function () {
+        createuserpage (hitman47);
+    });
 
 
 //     записываем в контейнер желан ие
