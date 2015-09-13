@@ -72,7 +72,6 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
     }
 
 
-
     var createuserpage = function (id) {
         UserDataRef.once("value", function (snapshot) {
             var idSnapshot = snapshot.child(id);
