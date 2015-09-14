@@ -300,6 +300,9 @@ $(document).ready(function () {
                     name: name
                 });
                 if (remember === true) {
+
+                    //эти куки заменяют куки анонима, нужно брать от него!!
+
                     $.cookie('userId', userData.uid);
                 } else {};
             }
