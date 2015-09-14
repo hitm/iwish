@@ -12,9 +12,10 @@ $(document).ready(function () {
         attr4: ''
     };
 
-    //алерты проверки наличия куков
+/*
+пробы алертов при отсутствии анонимов
 
-        var cookie = null;
+если аноним зашел, надо привязать куки к нему,  ане создавать новые. если зашел человек, не должны создаваться новые анонимы
 
         if (typeof authData === "undefined") {
             alert("анонимус не определен")
@@ -28,10 +29,11 @@ $(document).ready(function () {
             alert("айдишник определен")
         };
 
+*/
 
     //куки по айди пользователя
     var cookie = $.cookie('userId');
-    console.log(cookie);
+    console.log("Куки по айди пользователя:", cookie);
 
     //глобальная пустая страница пользователя
     var div_userpage = '';
@@ -48,9 +50,9 @@ $(document).ready(function () {
 
 
     // проба куков анонима
-    //if (typeof cookie === "undefined") {
+    //если куки нули - то дать анонима, иначе загрузить их (не получается сделать анонима регистрированным...)
     if (cookie === 'null') {
-        console.log('не назначены');
+        console.log('пустые куки');
         remember: "sessionOnly";
         ref.authAnonymously(function (error, authData) {
             if (error) {
@@ -58,26 +60,14 @@ $(document).ready(function () {
             } else {
                 console.log("Authenticated successfully with payload:", authData);
                 ref.set(authData);
-                cookie = authData.uid;
-                console.log(authData);
-                console.log(authData.uid);
+                console.log("смотрим содержимое объекта authData:", authData);
+                console.log("смотрим содержимое authData.uid:", authData.uid);
             }
+          $.cookie('userId', authData.uid);
         });
     } else {
-        console.log(cookie);
         console.log('есть куки', $.cookie('userId'));
-        console.log($.cookie('userId'));
-        console.log('Куки есть:', cookie, $.cookie('userId'));
     };
-
-    /*
-       else {
-           if (cookie === 'null') {
-               console.log('куки не назначены', authData, cookie);
-               remember: "sessionOnly"
-           }
-       }*/
-
 
     /*  проба куков анонима
         ref.authAnonymously(function (error, authData) {
@@ -102,7 +92,6 @@ $(document).ready(function () {
                 console.log('Куки есть:', cookie, $.cookie('userId'));
             }
         });*/
-    console.log(cookie);
 
 
 
