@@ -3,6 +3,8 @@ $(document).ready(function () {
     var DataRef = new Firebase('https://iwish.firebaseio.com/wishes');
     //подключаем ветку users в firebase
     var UserDataRef = new Firebase('https://iwish.firebaseio.com/users');
+    //подключаем ветку анонимных users в firebase
+    var ref = new Firebase('https://iwish.firebaseio.com/anonusers');
     var myobject = {
         attr1: '',
         attr2: '',
@@ -16,6 +18,20 @@ $(document).ready(function () {
 
     //   $scope.articles = sync.$asArray();
     //    console.log(snapshot.key());
+
+
+
+ref.authAnonymously(function(error, authData) {
+     remember: "sessionOnly"
+  if (error) {
+    console.log("Login Failed!", error);
+  } else {
+    console.log("Authenticated successfully with payload:", authData);
+       ref.set(authData);
+  }
+});
+
+
 
 
     /*
@@ -41,9 +57,6 @@ $(document).ready(function () {
       console.log(snapshot.key())
     });
     */
-
-    //    var cooki = $.cookie('userId');
-    //    console.log(cooki);
 
     var count = 0;
     var div1 = '<div id="one"><input type="text" id="text1" placeholder="wish"><button type="submit" id="btn1">add wish</button></div>';
