@@ -12,24 +12,24 @@ $(document).ready(function () {
         attr4: ''
     };
 
-/*
-пробы алертов при отсутствии анонимов
+    /*
+    пробы алертов при отсутствии анонимов
 
-если аноним зашел, надо привязать куки к нему,  ане создавать новые. если зашел человек, не должны создаваться новые анонимы
+    если аноним зашел, надо привязать куки к нему,  ане создавать новые. если зашел человек, не должны создаваться новые анонимы
 
-        if (typeof authData === "undefined") {
-            alert("анонимус не определен")
-        } else {
-            alert("анонимус определен")
-        };
+            if (typeof authData === "undefined") {
+                alert("анонимус не определен")
+            } else {
+                alert("анонимус определен")
+            };
 
- if (typeof userId === "undefined") {
-            alert("айдишник не определен")
-        } else {
-            alert("айдишник определен")
-        };
+     if (typeof userId === "undefined") {
+                alert("айдишник не определен")
+            } else {
+                alert("айдишник определен")
+            };
 
-*/
+    */
 
     //куки по айди пользователя
     var cookie = $.cookie('userId');
@@ -51,23 +51,31 @@ $(document).ready(function () {
 
     // проба куков анонима
     //если куки нули - то дать анонима, иначе загрузить их (не получается сделать анонима регистрированным...)
-    if (cookie === 'null') {
-        console.log('пустые куки');
-        remember: "sessionOnly";
-        ref.authAnonymously(function (error, authData) {
-            if (error) {
-                console.log("Login Failed!", error);
-            } else {
-                console.log("Authenticated successfully with payload:", authData);
-                ref.set(authData);
-                console.log("смотрим содержимое объекта authData:", authData);
-                console.log("смотрим содержимое authData.uid:", authData.uid);
-            }
-          $.cookie('userId', authData.uid);
-        });
-    } else {
-        console.log('есть куки', $.cookie('userId'));
-    };
+
+
+
+        if (cookie === 'null') {
+            console.log('пустые куки');
+            remember: "sessionOnly";
+            ref.authAnonymously(function (error, authData) {
+                if (error) {
+                    console.log("Login Failed!", error);
+                } else {
+                    console.log("Authenticated successfully with payload:", authData);
+                    ref.set(authData);
+                    console.log("смотрим содержимое объекта authData:", authData);
+                    console.log("смотрим содержимое authData.uid:", authData.uid);
+                }
+                $.cookie('userId', authData.uid);
+            });
+        } else {
+            console.log('есть куки', $.cookie('userId'));
+            console.log(cookie);
+        };
+
+
+
+
 
     /*  проба куков анонима
         ref.authAnonymously(function (error, authData) {
@@ -302,7 +310,7 @@ $(document).ready(function () {
                 if (remember === true) {
 
                     //эти куки заменяют куки анонима, нужно брать от него!!
-
+ console.log('проверка перезаписи', cookie);
                     $.cookie('userId', userData.uid);
                 } else {};
             }
@@ -324,7 +332,9 @@ $(document).ready(function () {
                 console.log("Login Failed!", error);
             } else {
                 console.log("Authenticated successfully with payload:", authData);
+                console.log('проверка перезаписи2', cookie);
                 cookie = authData.uid;
+                console.log('проверка перезаписи3', cookie);
                 console.log(authData.uid);
                 var remember = $('.myCheckbox').prop('checked');
                 console.log(remember);
