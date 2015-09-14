@@ -18,21 +18,39 @@ $(document).ready(function () {
 
     //   $scope.articles = sync.$asArray();
     //    console.log(snapshot.key());
+    /*
+    console.log(authData.uid);
+    console.log($.cookie('userId'));
+            if ($.cookie('userId') === 'null') {
+                */
+    ref.authAnonymously(function (error, authData) {
+        if (cookie === null) {
+            console.log('первое');
+            console.log('Куки есть:', cookie, $.cookie('userId'));
+            console.log($.cookie('userId'));
+            remember: "sessionOnly"
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                console.log("Authenticated successfully with payload:", authData);
+                ref.set(authData);
+                console.log(authData.uid);
+                cookie = authData.uid;
+                console.log(cookie);
+            }
+        } else {
+            console.log('второе', $.cookie('userId'));
+            console.log($.cookie('userId'));
+            console.log('Куки есть:', cookie, $.cookie('userId'));
+        }
+    });
 
+    /*
+        } else {
+            console.log('Куки есть:', cookie, $.cookie('userId'));
+        };
 
-
-ref.authAnonymously(function(error, authData) {
-     remember: "sessionOnly"
-  if (error) {
-    console.log("Login Failed!", error);
-  } else {
-    console.log("Authenticated successfully with payload:", authData);
-       ref.set(authData);
-  }
-});
-
-
-
+*/
 
     /*
 
@@ -99,10 +117,14 @@ ref.authAnonymously(function(error, authData) {
         });
     };
 
+    //тестовая кнопка кукисов
+    $('.navbar').on('click', '#testcookie', function () {
+        console.log(cookie);
+    });
+
     //тестовая кнопка
     $('.navbar').on('click', '#testbutton', function () {
         createuserpage(cookie);
-
     });
 
     //переход на страницу пользователя
