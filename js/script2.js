@@ -11,8 +11,28 @@ $(document).ready(function () {
         attr3: '',
         attr4: ''
     };
+
+    //алерты проверки наличия куков
+
+        var cookie = null;
+
+        if (typeof authData === "undefined") {
+            alert("анонимус не определен")
+        } else {
+            alert("анонимус определен")
+        };
+
+ if (typeof userId === "undefined") {
+            alert("айдишник не определен")
+        } else {
+            alert("айдишник определен")
+        };
+
+
     //куки по айди пользователя
     var cookie = $.cookie('userId');
+    console.log(cookie);
+
     //глобальная пустая страница пользователя
     var div_userpage = '';
 
@@ -23,40 +43,75 @@ $(document).ready(function () {
     console.log($.cookie('userId'));
             if ($.cookie('userId') === 'null') {
                 */
-    /*
-     if (typeof cookie === "undefined") {
-    alert("something undefined")}
-     else {  alert("something")};
-    */
-    ref.authAnonymously(function (error, authData) {
-     //   if (typeof cookie === "undefined") {
-        if (cookie === 'null') {
-            console.log('куки не назначены', authData, cookie);
-            remember: "sessionOnly"
+
+
+
+
+    // проба куков анонима
+    //if (typeof cookie === "undefined") {
+    if (cookie === 'null') {
+        console.log('не назначены');
+        remember: "sessionOnly";
+        ref.authAnonymously(function (error, authData) {
             if (error) {
                 console.log("Login Failed!", error);
             } else {
                 console.log("Authenticated successfully with payload:", authData);
                 ref.set(authData);
-                cookie = authData;
-                console.log(authData.uid);
+                cookie = authData.uid;
                 console.log(authData);
-                console.log(cookie);
+                console.log(authData.uid);
             }
-        } else {
-            console.log(cookie);
-            console.log('есть куки', $.cookie('userId'));
-            console.log($.cookie('userId'));
-            console.log('Куки есть:', cookie, $.cookie('userId'));
-        }
-    });
- console.log(cookie);
-    /*
-        } else {
-            console.log('Куки есть:', cookie, $.cookie('userId'));
-        };
+        });
+    } else {
+        console.log(cookie);
+        console.log('есть куки', $.cookie('userId'));
+        console.log($.cookie('userId'));
+        console.log('Куки есть:', cookie, $.cookie('userId'));
+    };
 
-*/
+    /*
+       else {
+           if (cookie === 'null') {
+               console.log('куки не назначены', authData, cookie);
+               remember: "sessionOnly"
+           }
+       }*/
+
+
+    /*  проба куков анонима
+        ref.authAnonymously(function (error, authData) {
+            //   if (typeof cookie === "undefined") {
+            if (cookie === 'null') {
+                console.log('куки не назначены', authData, cookie);
+                remember: "sessionOnly"
+                if (error) {
+                    console.log("Login Failed!", error);
+                } else {
+                    console.log("Authenticated successfully with payload:", authData);
+                    ref.set(authData);
+                    cookie = authData;
+                    console.log(authData.uid);
+                    console.log(authData);
+                    console.log(cookie);
+                }
+            } else {
+                console.log(cookie);
+                console.log('есть куки', $.cookie('userId'));
+                console.log($.cookie('userId'));
+                console.log('Куки есть:', cookie, $.cookie('userId'));
+            }
+        });*/
+    console.log(cookie);
+
+
+
+    /*
+            } else {
+                console.log('Куки есть:', cookie, $.cookie('userId'));
+            };
+
+    */
 
     /*
 
