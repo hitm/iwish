@@ -179,11 +179,13 @@ $(document).ready(function () {
     //тестовая кнопка кукисов
     $('.navbar').on('click', '#testcookie', function () {
         console.log(cookie);
+
     });
 
     //тестовая кнопка
     $('.navbar').on('click', '#testbutton', function () {
         createuserpage(cookie);
+        $('#container').html(div_userpage);
     });
 
     //переход на страницу пользователя
