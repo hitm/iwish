@@ -1,5 +1,7 @@
 $(document).ready(function () {
+    //подключаем ветку wishes в firebase
     var DataRef = new Firebase('https://iwish.firebaseio.com/wishes');
+    //подключаем ветку users в firebase
     var UserDataRef = new Firebase('https://iwish.firebaseio.com/users');
     var myobject = {
         attr1: '',
@@ -7,35 +9,38 @@ $(document).ready(function () {
         attr3: '',
         attr4: ''
     };
+    //куки по айди пользователя
     var cookie = $.cookie('userId');
+    //глобальная пустая страница пользователя
     var div_userpage = '';
 
     //   $scope.articles = sync.$asArray();
     //    console.log(snapshot.key());
 
 
-
-
-
-    //   DataRef.on("value", function(snapshot) {
-    // console.log(snapshot.val());
-    //}, function (errorObject) {
-    // console.log("The read failed: " + errorObject.code);
-    //});
     /*
-DataRef.orderByChild("reasons").equalTo(1).on("child_added", function(snapshot) {
-  console.log(snapshot.val());
-});
 
-DataRef.orderByValue("wishes").equalTo(1).limitToLast(3).on("value", function(snapshot) {
-  snapshot.forEach(function(data) {
-    console.log("The " + data.key() + " dinosaur's score is " + data.val());
-  });
-});
 
-DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) {
-  console.log(snapshot.key())
-});*/
+          DataRef.on("value", function(snapshot) {
+        console.log(snapshot.val());
+       }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+       });
+
+    DataRef.orderByChild("reasons").equalTo(1).on("child_added", function(snapshot) {
+      console.log(snapshot.val());
+    });
+
+    DataRef.orderByValue("wishes").equalTo(1).limitToLast(3).on("value", function(snapshot) {
+      snapshot.forEach(function(data) {
+        console.log("The " + data.key() + " dinosaur's score is " + data.val());
+      });
+    });
+
+    DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) {
+      console.log(snapshot.key())
+    });
+    */
 
     //    var cooki = $.cookie('userId');
     //    console.log(cooki);
@@ -77,26 +82,23 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
             var idSnapshot = snapshot.child(id);
             var outid = idSnapshot.val();
             console.log(outid);
-
-
-
             div_userpage = '<div class="div_userpage"><div id="user_info" class="col-md-12"><div id="avatar" class="col-md-2"><img src="http://lorempixel.com//100/150/people"></div><div id= "userhead" class="col-md-9"><h1>' + outid.name + '</h1><p>user_info</p><p>user_info</p></div><div id="rank" class="col-md-1"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"></div></div><div id="my_wishes" class="col-md-6"><h1>my_wishes</h1><div id="accordeon" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><span><h3 class="panel-title"><a href="#collapse-1" data-parent="#accordeon" data-toggle="collapse">открыть 1 слайд</a></h3></span></div><div id="collapse-1" class="panel-collapse collapse"><div class="panel-body"><p>1ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-2" data-parent="#accordeon" data-toggle="collapse">открыть 2 слайд</a></h3></div><div id="collapse-2" class="panel-collapse collapse"><div class="panel-body"><p>2ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-3" data-parent="#accordeon" data-toggle="collapse">открыть 3 слайд</a></h3></div><div id="collapse-3" class="panel-collapse collapse"><div class="panel-body"><p>3ыыыыыыыыыыыыыыыы</p></div></div></div></div></div><div class = "wish"><span></div></div><div id="others_wishes" class="col-md-6"><h1>other_wishes</h1><div id="accordeon2" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-4" data-parent="#accordeon2" data-toggle="collapse">открыть 1 слайд</a></h3></div><div id="collapse-4" class="panel-collapse collapse"><div class="panel-body"><p>1ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-5" data-parent="#accordeon2" data-toggle="collapse">открыть 2 слайд</a></h3></div><div id="collapse-5" class="panel-collapse collapse"><div class="panel-body"><p>2ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-6" data-parent="#accordeon2" data-toggle="collapse">открыть 3 слайд</a></h3></div><div id="collapse-6" class="panel-collapse collapse"><div class="panel-body"><p>3ыыыыыыыыыыыыыыыы</p></div></div></div></div></div></div>';
-
-
         });
-
     };
 
+    //тестовая кнопка
     $('.navbar').on('click', '#testbutton', function () {
         createuserpage(cookie);
 
     });
 
+    //переход на страницу пользователя
     $('.navbar').on('click', '#userpage', function () {
         console.log('усерпаге');
         $('#container').html(div_userpage);
     });
 
+    //сброс кукисов
     $('.navbar').on('click', '#reset', function () {
         console.log('sbros');
         next_div = div1;
@@ -105,41 +107,37 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
         cookie = null;
     });
 
-    //     записываем в контейнер желан ие
-    //
-    //        if ($.cookie('userId') == null){
-    //            console.log('nokuki');
-    //            $('#container').html(div1);
-    //        }
-    //        else{
-    //            console.log('yeskuki');
-    //            $('#container').html(div_userpage);
-    //        }
+    //записывваем в контейнер стартовую часть
     $('#container').html(div1);
-    //    функция отправки желания
+
+    //    добавление желания
     $('#container').on('click', '#btn1', function () {
         var text = $('#text1').val();
         myobject.addattr(text);
     });
-    //    функция добавления причины
+
+    //    добавление причины
     $('#container').on('click', '#btn2', function () {
         var text = $('#text2').val();
         myobject.addattr(text);
         $('#text2').val('');
     });
-    //    функция добавления проблемы
+
+    //    добавление проблемы
     $('#container').on('click', '#btn3', function () {
         var text = $('#text3').val();
         myobject.addattr(text);
         $('#text3').val('');
     });
-    //    функция добавления жертвы
+
+    //    добавление жертвы
     $('#container').on('click', '#btn4', function () {
         var text = $('#text4').val();
         myobject.addattr(text);
         $('#text4').val('');
     });
-    //    функция отправки причины и проблемы и перехода к следующему шагу
+
+    //    переход к следующему шагу с обрезкой последней запятой
     $('#container').on('click', '#next', function () {
         if (next_div === div2) {
             next_div = div3;
@@ -155,10 +153,11 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
         $('#container').html(next_div);
         count = 0;
     });
-    //    функция отправки жертвы, ввода информации в базу и перехода к регистрации
+
+    //    отправка жертвы, ввод информации в базу и переход к регистрации
     $('#container').on('click', '#finish', function () {
         var usersRef = DataRef.child(myobject.attr1);
-        var userRef = UserDataRef.child(cookie/myobject.attr1);
+        var userRef = UserDataRef.child(cookie / myobject.attr1);
         var str = myobject.attr4;
         str = str.substring(0, str.length - 1);
         myobject.attr4 = str;
@@ -191,10 +190,9 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
         } else {
             console.log("какая-то ошибка");
         }
-        // $('#login').html(div5);
     });
-    //    функция регистрации
 
+    //    регистрация
     $('#container').on('click', '#btnreg', function () {
         $('#forspin').html(spiner);
         console.log("начало регистрации");
@@ -218,15 +216,12 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
                 });
                 if (remember === true) {
                     $.cookie('userId', userData.uid);
-
                 } else {};
-
-
             }
         });
     });
 
-    //    функция входa
+    //    вход
     $("#container").on("click", '#btnlog', function () {
         $('#forspin').html(spiner);
         console.log("попытка входа");
@@ -251,11 +246,27 @@ DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) 
             }
         });
     });
+
+    //удаление кукисов
     $('#container').on('click', '#delkoocies', function () {
         $.cookie('userId', null);
     });
 
 
 
-
+    //пример вывода случайной цитаты
+    function sluchaynaya_citata() {
+        // Массив, который содержит цитаты-строки:
+        var citati = [
+    '123',
+    'йцу',
+    'фыв',
+    'ячс'
+  ];
+        // Генерация случайного номера для выборки из массива citati:
+        var nomer = Math.round(Math.random() * (citati.length - 1));
+        // Возвращаем строку:
+        return citati[nomer];
+    }
+    document.getElementById("random_citata").innerHTML = sluchaynaya_citata();
 });

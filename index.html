@@ -8,16 +8,10 @@
     <meta name="description" content="For your sacrifice desire">
     <meta name="author" content="V&D">
 
-    <!-- Le styles -->
+    <!-- стили -->
     <link href=" css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/font-awesome.css" rel="stylesheet">
-    <style type="text/css">
-        body {
-            padding-top: 60px;
-            padding-bottom: 40px;
-        }
-    </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -25,7 +19,7 @@
       <script src="js/html5shiv.js"></script>
     <![endif]-->
 
-    <!-- Fav and touch icons -->
+    <!-- icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lorempixel.com/144/144">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lorempixel.com/114/114">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lorempixel.com/72/72">
@@ -35,15 +29,17 @@
 
 <body>
 
+    <!-- навигационная панель сверху -->
     <div class="navbar navbar-inverse navbar-fixed-top">
-    <button type="button" class="btn" id="userpage">userpage</button>
-    <button type="button" class="btn" id="reset">reset</button>
-    <button type="submit" id="testbutton">test button</button></div>
+        <button type="button" class="btn" id="userpage">userpage</button>
+        <button type="button" class="btn" id="reset">reset</button>
+        <button type="submit" id="testbutton">test button</button>
+    </div>
     </div>
 
 
 
-
+    <!-- основная часть страницы -->
     <div class="container">
 
         <div class="hero-unit">
@@ -53,31 +49,15 @@
         </div>
 
     </div>
-    <p id="vasha_citata">Здесь будет показана случайная цитата.</p>
-<script type="text/javascript">
-function sluchaynaya_citata() {
-  // Массив, который содержит цитаты-строки:
-  var citati = [
-    '123',
-    'йцу',
-    'фыв',
-    'ячс'
-  ];
 
-  // Генерация случайного номера для выборки из массива citati:
-  var nomer = Math.round(Math.random() * (citati.length-1));
+    <!-- пример вывода случайной цитаты -->
+    <p id="random_citata"></p>
 
-  // Возвращаем строку:
-  return citati[nomer];
-}
-
-document.getElementById("vasha_citata").innerHTML = sluchaynaya_citata();
-</script>
 
 
     <!-- /container -->
 
-    <!-- Le javascript
+    <!-- скрипты
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
