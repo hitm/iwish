@@ -1,17 +1,16 @@
 $(document).ready(function () {
     //подключаем ветку wishes в firebase
-    var DataRef = new Firebase('https://iwish.firebaseio.com/wishes');
+    var DataRef = new Firebase('https://iwish.firebaseio.com');
     //подключаем ветку users в firebase
     var UserDataRef = new Firebase('https://iwish.firebaseio.com/users');
     //подключаем ветку анонимных users в firebase
-    var ref = new Firebase('https://iwish.firebaseio.com/anonusers');
+    var ref = new Firebase('https://iwish.firebaseio.com/users');
     var myobject = {
         attr1: '',
         attr2: '',
         attr3: '',
         attr4: ''
     };
-
     /*
     пробы алертов при отсутствии анонимов
 
@@ -55,18 +54,21 @@ $(document).ready(function () {
 
 
         if (cookie === 'null') {
-            console.log('пустые куки');
+            console.log('пусте куки');
             remember: "sessionOnly";
             ref.authAnonymously(function (error, authData) {
                 if (error) {
                     console.log("Login Failed!", error);
                 } else {
                     console.log("Authenticated successfully with payload:", authData);
-                    ref.set(authData);
+                    authData.nick = 'Guest';
+                    authData.auth = null;
+                    ref.child(authData.uid).set(authData);
                     console.log("смотрим содержимое объекта authData:", authData);
                     console.log("смотрим содержимое authData.uid:", authData.uid);
                 }
                 $.cookie('userId', authData.uid);
+                cookie = $.cookie('userId');
             });
         } else {
             console.log('есть куки', $.cookie('userId'));
@@ -139,7 +141,7 @@ $(document).ready(function () {
     var div2 = '<div id="two"><input type="text" id="text2" placeholder="reason"><button type="submit" id="btn2">add reason</button><button type="submit" id="next">next</button></div><div id="list"></div>';
     var div3 = '<div id="three"><input type="text" id="text3" placeholder="hedge"><button type="submit" id="btn3">add3</button><button type="submit" id="next">next</button></div><div id="list"></div>';
     var div4 = '<div id="four"><input type="text" id="text4" placeholder="piece""><button type="submit" id="btn4">add prices</button><button type="submit" id="finish">finish</button></div><div id="list"></div><div id="list2"></div><div id="list3"></div><div id="list4"></div><div id="login"></div>';
-    var div5 = '<div id="five"><input type="text" id="nickname" placeholder="nickname"><input type="email" class="form-control" id="email" placeholder="Email address" required autofocus><input type="password" class="form-control" id="pass" placeholder="Password" required> <br><div id=forspin></div><label class="checkbox"><br><input type="checkbox" class="myCheckbox" value="remember-me"> Remember me</label><br><button class="btn btn-lg btn-primary btn-block" id="btnreg">register</button><br><button class="btn btn-lg btn-primary btn-block" id="btnlog">login</button><br></div>';
+    var div5 = '<div id="five"><input type="text" id="nickname" placeholder="nickname"><input type="email" class="form-control" id="email" placeholder="Email address" required autofocus><input type="password" class="form-control" id="pass" placeholder="Password" required> <br><div id=forspin></div><label class="checkbox"><br><input type="checkbox" class="myCheckbox" value="remember-me"> Remember me</label><br><button class="btn btn-lg btn-primary btn-block" id="btnreg">register</button><br><button class="btn btn-lg btn-primary btn-block" id="btnlog">login</button><br><button class="btn btn-lg btn-primary btn-block" id="btnanon">enter without registration</button></div>';
     var div6 = '<div id="success">Success!</div>';
     var spiner = '<div><i class="fa fa-spinner fa-lg fa-spin"></i></div>';
     var next_div = div1;
@@ -252,8 +254,13 @@ $(document).ready(function () {
 
     //    отправка жертвы, ввод информации в базу и переход к регистрации
     $('#container').on('click', '#finish', function () {
-        var usersRef = DataRef.child(myobject.attr1);
-        var userRef = UserDataRef.child(cookie / myobject.attr1);
+        var Ref = new Firebase('https://iwish.firebaseio.com/users');
+        Ref.once("value", function (snapshot) {
+            var idSnapshot = snapshot.child(cookie);
+            //var outid = idSnapshot.val();
+        console.log('анонимный юзер' + idSnapshot);
+        });
+
         var str = myobject.attr4;
         str = str.substring(0, str.length - 1);
         myobject.attr4 = str;
@@ -273,8 +280,8 @@ $(document).ready(function () {
             "heges": json_hedges,
             "prices": json_prises,
         };
-        usersRef.set(testext);
-        userRef.set(testext);
+       // usersRef.set(testext);
+       // userRef.set(testext);
         $('#list').html(myobject.attr1);
         $('#list2').html("ваши причины:" + " " + myobject.attr2);
         $('#list3').html("ваши преграды:" + " " + myobject.attr3);
@@ -288,6 +295,11 @@ $(document).ready(function () {
         }
     });
 
+    //анон вход
+     $('#container').on('click', '#btnanon', function () {
+
+
+     });
     //    регистрация
     $('#container').on('click', '#btnreg', function () {
         $('#forspin').html(spiner);
