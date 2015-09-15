@@ -205,8 +205,17 @@ $(document).ready(function () {
                 "reasons": json_reasons,
                 "heges": json_hedges,
                 "prices": json_prises,
+                "uid": 'фыва',
+                "name":'олдж',
+
             };
-            Ref.child(cookie).set(testext);
+            var newuid =
+                 {
+                   cookie: 'йцукен',
+                 };
+            Ref.child(cookie).update(testext);
+            Ref.update(newuid);
+            console.log();
         });
     });
 
