@@ -190,6 +190,10 @@ $(document).ready(function () {
         $('#container').html(div_userpage);
     });
 
+       $('.navbar').on('click', '#test2', function () {
+        console.log('тестируем вторую кнопку');
+    });
+
     //переход на страницу пользователя
     $('.navbar').on('click', '#userpage', function () {
         console.log('усерпаге');
