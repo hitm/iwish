@@ -52,9 +52,9 @@ $(document).ready(function () {
     //если куки нули - то дать анонима, иначе загрузить их (не получается сделать анонима регистрированным...)
 
 
-undefined
+
         if (cookie === 'null' || typeof cookie === undefined ) {
-            console.log('пусте куки');
+            console.log('пустые куки');
             remember: "sessionOnly";
             ref.authAnonymously(function (error, authData) {
                 if (error) {
