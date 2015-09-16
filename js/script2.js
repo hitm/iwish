@@ -186,8 +186,14 @@ $(document).ready(function () {
 
     //тестовая кнопка
     $('.navbar').on('click', '#testbutton', function () {
-        createuserpage(cookie);
-        $('#container').html(div_userpage);
+       var Ref = new Firebase('https://iwish.firebaseio.com/users/');
+       Ref.child(cookie).once("value", function (snapshot, authData) {
+       var snap =  snapshot.val();//строчка раз
+       Ref.child('new_id').set(snap)//строчка два
+       Ref.child(snap.uid).remove();//сточка три
+       });
+
+
     });
 
     //вторая тестовая кнопка
@@ -221,7 +227,7 @@ $(document).ready(function () {
 
     //переход на страницу пользователя
     $('.navbar').on('click', '#userpage', function () {
-        console.log('усерпаге');
+         createuserpage(cookie);
         $('#container').html(div_userpage);
     });
 
