@@ -120,7 +120,7 @@ $(document).ready(function () {
 
            //console.log(myWishes);
            // console.log(qwer);
-           var wish1 = (Object.keys(outid.wishes));
+           var wish1 = (Object.keys(outid.wishes)); //получение ключей желаний внутри юзера в виде "wish1[1]"
             var x = wish1[2];
            console.log(wish1);
             var thiswish = outid.wishes[x];
