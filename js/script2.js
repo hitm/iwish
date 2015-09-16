@@ -311,14 +311,17 @@ $(document).ready(function () {
         UserDataRef.child(cookie).update({
             "wishes": wishes
         });
-        var WishRef = new Firebase('https://iwish.firebaseio.com/users/' + cookie);
-
+        var WishRef = new Firebase('https://iwish.firebaseio.com/users/' + cookie + '/wishes');
+    //    WishRef.child(cookie).update({
+    //        "wishes": wishes
+    //    });
         var testext = {
 
             "reasons": json_reasons,
             "heges": json_hedges,
             "prices": json_prises,
         };
+
         WishRef.child(wishes).update(testext);
         //  UserDataRef.child(cookie/wishes).update(testext);
         //   UserDataRef.child(cookie/wishes).update(testext2);
