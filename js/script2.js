@@ -53,7 +53,7 @@ $(document).ready(function () {
 
 
 
-    if (cookie === 'null' || typeof cookie === undefined) {
+    if (cookie === 'null' || typeof cookie === 'undefined') {
         console.log('пустые куки');
         remember: "sessionOnly";
         ref.authAnonymously(function (error, authData) {
