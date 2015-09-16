@@ -189,7 +189,7 @@ $(document).ready(function () {
        var Ref = new Firebase('https://iwish.firebaseio.com/users/');
        Ref.child(cookie).once("value", function (snapshot, authData) {
        var snap =  snapshot.val();//строчка раз
-       Ref.child('new_id').set(snap)//строчка два
+       Ref.child('new_id').set(snap);//строчка два
        Ref.child(snap.uid).remove();//сточка три
        });
 
