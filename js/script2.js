@@ -373,14 +373,18 @@ $(document).ready(function () {
                     cookie = userData.uid;
                     UserDataRef.child(cookie).update({
                         "name": name,
-                        "provider": null
+                        "provider": null,
+                        "nick": null,
+                        "uid": null,
+                        "expires": null,
+                        "token": null
                     });
                 });
                 if (remember === true) {
 
                     //эти куки заменяют куки анонима, нужно брать от него!!
-                    console.log('проверка перезаписи', cookie);
-                    // $.cookie('userId', userData.uid);
+                    //console.log('проверка перезаписи', cookie);
+                    //$.cookie('userId', userData.uid);
                 } else {};
             }
         });
@@ -401,15 +405,22 @@ $(document).ready(function () {
                 console.log("Login Failed!", error);
             } else {
                 console.log("Authenticated successfully with payload:", authData);
-                console.log('проверка перезаписи2', cookie);
+                //          console.log('проверка перезаписи2', cookie, authData);
                 cookie = authData.uid;
-                console.log('проверка перезаписи3', cookie);
+
+                WishRef = UserDataRef.child(cookie);
+                WishRef.update({
+                    "token": authData.token
+                });
+                //                console.log('проверка перезаписи3', cookie);
                 console.log(authData.uid);
                 var remember = $('.myCheckbox').prop('checked');
                 console.log(remember);
                 if (remember === true) {
                     $.cookie('userId', cookie);
                 } else {};
+                createuserpage(cookie);
+                $('#container').html(div_userpage); //переходим на страницу пользователя
             }
         });
     });
