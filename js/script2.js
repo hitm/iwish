@@ -308,49 +308,17 @@ $(document).ready(function () {
         console.log(json_prises);
         console.log(wishes);
 
-        UserDataRef.child(cookie).update({
-            "wishes": wishes
+        WishRef = UserDataRef.child(cookie);
+        inWishRef = WishRef.child('wishes');
+        inSomeWishRef = inWishRef.child(wishes);
+
+        inSomeWishRef.update({
+
+            "reasons": json_reasons,
+            "heges": json_hedges,
+            "prices": json_prises,
         });
-        // var WishRef = new Firebase('https://iwish.firebaseio.com/users/' + cookie + '/wishes');
-        //    WishRef.child(cookie).update({
-        //        "wishes": wishes
-        //    });
 
-
-
-        var usersRef = new Firebase('https://samplechat.firebaseio-demo.com/users');
-        var fredRef = usersRef.child('fred');
-        var fredFirstNameRef = fredRef.child('name/first');
-        var path = fredFirstNameRef.toString();
-        // path is now 'https://samplechat.firebaseio-demo.com/users/fred/name/first'
-
-
-            WishRef=UserDataRef.child(cookie);
-                WishRef.update({
-                "wishes": wishes
-            });
-            inWishRef=WishRef.child("wishes/"+wishes); //перезаписывается старое желание, а новое не записывается
-        inWishRef.update({
-                "reasons": json_reasons,
-                "heges": json_hedges,
-                "prices": json_prises,
-            });
-  /*      var testext =  {
-                "reasons": json_reasons,
-                "heges": json_hedges,
-                "prices": json_prises,
-
-        };
-        cookieUserDataRef = UserDataRef.child(cookie + '/wishes/');
-        cookieUserDataRef.update(testext);
-        //  WishRef.child('wishes').update(testext);
-
-
-*/
-
-
-        //  UserDataRef.child(cookie/wishes).update(testext);
-        //   UserDataRef.child(cookie/wishes).update(testext2);
 
         /*      показ введенных данных
                 $('#list').html(myobject.attr1);
