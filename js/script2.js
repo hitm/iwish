@@ -322,7 +322,7 @@ $(document).ready(function () {
             "prices": json_prises,
         };
 
-        WishRef.child(wishes).update(testext);
+        WishRef.child('wishes').update(testext);
         //  UserDataRef.child(cookie/wishes).update(testext);
         //   UserDataRef.child(cookie/wishes).update(testext2);
 
