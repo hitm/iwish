@@ -14,7 +14,7 @@ $(document).ready(function () {
     /*
     пробы алертов при отсутствии анонимов
 
-    если аноним зашел, надо привязать куки к нему,  ане создавать новые. если зашел человек, не должны создаваться новые анонимы
+    если аноним зашел, надо привязать куки к нему,  а не создавать новые. если зашел человек, не должны создаваться новые анонимы
 
             if (typeof authData === "undefined") {
                 alert("анонимус не определен")
@@ -186,24 +186,21 @@ $(document).ready(function () {
 
     //тестовая кнопка
     $('.navbar').on('click', '#testbutton', function () {
-       var Ref = new Firebase('https://iwish.firebaseio.com/users/');
-       Ref.child(cookie).once("value", function (snapshot, authData) {
-       var snap =  snapshot.val();//строчка раз
-       Ref.child('new_id').set(snap);//строчка два
-       Ref.child(snap.uid).remove();//сточка три
-       });
-
-
+        UserDataRef.child(cookie).once("value", function (snapshot, authData) {
+            var snap = snapshot.val(); //строчка раз
+            UserDataRef.child('new_id').set(snap); //строчка два
+            UserDataRef.child(snap.uid).remove(); //сточка три
+        });
     });
 
     //вторая тестовая кнопка
     $('.navbar').on('click', '#test2', function () {
         console.log('тестируем вторую кнопку');
         //при нажатии устанавливаем новое содержание старого пользователя
-        var Ref = new Firebase('https://iwish.firebaseio.com/users/');
-        Ref.child(cookie).once("value", function (snapshot, authData) {
+        //   var Ref = new Firebase('https://iwish.firebaseio.com/users/');
+        UserDataRef.child(cookie).once("value", function (snapshot, authData) {
             console.log('все о пользователе', snapshot.val());
-      //      authData = 'test';
+            //      authData = 'test';
             json_reasons = '123';
             json_hedges = '456';
             json_prises = '789';
@@ -212,22 +209,21 @@ $(document).ready(function () {
                 "heges": json_hedges,
                 "prices": json_prises,
                 "uid": 'фыва',
-                "name":'олдж',
+                "name": 'олдж',
 
             };
-            var newuid =
-                 {
-                   cookie: 'йцукен',
-                 };
-            Ref.child(cookie).update(testext);
-            Ref.update(newuid);
+            var newuid = {
+                cookie: 'йцукен',
+            };
+            UserDataRef.child(cookie).update(testext);
+            UserDataRef.update(newuid);
             console.log();
         });
     });
 
     //переход на страницу пользователя
     $('.navbar').on('click', '#userpage', function () {
-         createuserpage(cookie);
+        createuserpage(cookie);
         $('#container').html(div_userpage);
     });
 
@@ -309,6 +305,10 @@ $(document).ready(function () {
             "heges": json_hedges,
             "prices": json_prises,
         };
+        UserDataRef.child(cookie).update(testext);
+
+
+
         // usersRef.set(testext);
         // userRef.set(testext);
         $('#list').html(myobject.attr1);
@@ -323,6 +323,12 @@ $(document).ready(function () {
             console.log("какая-то ошибка");
         }
     });
+
+
+
+
+
+
 
     //анон вход
     $('#container').on('click', '#btnanon', function () {
@@ -348,9 +354,25 @@ $(document).ready(function () {
             } else {
                 var remember = $('.myCheckbox').prop('checked');
                 console.log("Successfully created user account with uid:", userData.uid);
-                UserDataRef.child(userData.uid).set({
-                    name: name
-                });
+                console.log(cookie);
+
+
+
+                   UserDataRef.child(cookie).once("value", function (snapshot, authData) {
+            var snap = snapshot.val(); //строчка раз
+            UserDataRef.child(userData.uid).set(snap); //строчка два
+                       UserDataRef.child(cookie).update({
+                        "name": name
+                    });
+            UserDataRef.child(snap.uid).remove(); //сточка три
+                       console.log(cookie);
+                       cookie = userData.uid;
+                       console.log(cookie);
+        });
+
+
+
+
                 if (remember === true) {
 
                     //эти куки заменяют куки анонима, нужно брать от него!!
