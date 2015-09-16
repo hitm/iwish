@@ -13,6 +13,7 @@ $(document).ready(function () {
         attr3: '',
         attr4: ''
     };
+
     /*
     пробы алертов при отсутствии анонимов
 
@@ -39,22 +40,10 @@ $(document).ready(function () {
     //глобальная пустая страница пользователя
     var div_userpage = '';
 
-    //   $scope.articles = sync.$asArray();
-    //    console.log(snapshot.key());
-    /*
-    console.log(authData.uid);
-    console.log($.cookie('userId'));
-            if ($.cookie('userId') === 'null') {
-                */
-
-
 
 
     // проба куков анонима
     //если куки нули - то дать анонима, иначе загрузить их (не получается сделать анонима регистрированным...)
-
-
-
     if (cookie === 'null' || typeof cookie === 'undefined') {
         console.log('пустые куки');
         remember: "sessionOnly";
@@ -76,67 +65,6 @@ $(document).ready(function () {
         console.log('есть куки', $.cookie('userId'));
         console.log(cookie);
     };
-
-
-
-
-
-    /*  проба куков анонима
-        ref.authAnonymously(function (error, authData) {
-            //   if (typeof cookie === "undefined") {
-            if (cookie === 'null') {
-                console.log('куки не назначены', authData, cookie);
-                remember: "sessionOnly"
-                if (error) {
-                    console.log("Login Failed!", error);
-                } else {
-                    console.log("Authenticated successfully with payload:", authData);
-                    ref.set(authData);
-                    cookie = authData;
-                    console.log(authData.uid);
-                    console.log(authData);
-                    console.log(cookie);
-                }
-            } else {
-                console.log(cookie);
-                console.log('есть куки', $.cookie('userId'));
-                console.log($.cookie('userId'));
-                console.log('Куки есть:', cookie, $.cookie('userId'));
-            }
-        });*/
-
-
-
-    /*
-            } else {
-                console.log('Куки есть:', cookie, $.cookie('userId'));
-            };
-
-    */
-
-    /*
-
-
-          DataRef.on("value", function(snapshot) {
-        console.log(snapshot.val());
-       }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
-       });
-
-    DataRef.orderByChild("reasons").equalTo(1).on("child_added", function(snapshot) {
-      console.log(snapshot.val());
-    });
-
-    DataRef.orderByValue("wishes").equalTo(1).limitToLast(3).on("value", function(snapshot) {
-      snapshot.forEach(function(data) {
-        console.log("The " + data.key() + " dinosaur's score is " + data.val());
-      });
-    });
-
-    DataRef.orderByValue("wishes").equalTo(25).on("child_added", function(snapshot) {
-      console.log(snapshot.key())
-    });
-    */
 
     var count = 0;
     var div1 = '<div id="one"><input type="text" id="text1" placeholder="wish"><button type="submit" id="btn1">add wish</button></div>';
@@ -168,7 +96,6 @@ $(document).ready(function () {
             $('#login').html(div5);
         }
     }
-
 
     var createuserpage = function (id) {
         UserDataRef.once("value", function (snapshot) {
@@ -212,7 +139,6 @@ $(document).ready(function () {
                 "prices": json_prises,
                 "uid": 'фыва',
                 "name": 'олдж',
-
             };
             var newuid = {
                 cookie: 'йцукен',
@@ -336,17 +262,9 @@ $(document).ready(function () {
         }
     });
 
-
-
-
-
-
-
     //анон вход
-    $('#container').on('click', '#btnanon', function () {
+    $('#container').on('click', '#btnanon', function () {});
 
-
-    });
     //    регистрация
     $('#container').on('click', '#btnreg', function () {
         $('#forspin').html(spiner);
@@ -372,6 +290,7 @@ $(document).ready(function () {
                     UserDataRef.child(snap.uid).remove(); //сточка три
                     cookie = userData.uid;
                     UserDataRef.child(cookie).update({
+                        "email": email,
                         "name": name,
                         "provider": null,
                         "nick": null,
