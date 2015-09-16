@@ -149,7 +149,7 @@ $(document).ready(function () {
     myobject.addattr = function (tt) {
         count++;
         if (next_div === div1) {
-            myobject.attr1 = tt;
+            myobject.attr1 = myobject.attr1 + '"wish' + count + '":"' + tt + '"';
             next_div = div2;
             $('#container').html(next_div);
             count = 0;
@@ -290,31 +290,35 @@ $(document).ready(function () {
         str = str.substring(0, str.length - 1);
         myobject.attr4 = str;
         console.log(myobject);
+        var wishes= '{' + myobject.attr1 + '}';
+        var json_wishes = JSON.parse(wishes);
         var reasons = '{' + myobject.attr2 + '}';
         var json_reasons = JSON.parse(reasons);
         var hedges = '{' + myobject.attr3 + '}';
         var json_hedges = JSON.parse(hedges);
         var prises = '{' + myobject.attr4 + '}';
         var json_prises = JSON.parse(prises);
+        console.log("qwert", json_wishes);
+        console.log("asdf", reasons);
         console.log(json_reasons);
         console.log(json_hedges);
         console.log(json_prises);
 
         var testext = {
+            "wishes": json_wishes,
             "reasons": json_reasons,
             "heges": json_hedges,
             "prices": json_prises,
         };
         UserDataRef.child(cookie).update(testext);
 
-
-
-        // usersRef.set(testext);
-        // userRef.set(testext);
+/*      показ введенных данных
         $('#list').html(myobject.attr1);
         $('#list2').html("ваши причины:" + " " + myobject.attr2);
         $('#list3').html("ваши преграды:" + " " + myobject.attr3);
         $('#list4').html("ваши жертвы:" + " " + myobject.attr4);
+        */
+
         if (next_div === div4) {
             next_div = div5;
             console.log("перешли к 5");
@@ -354,25 +358,16 @@ $(document).ready(function () {
             } else {
                 var remember = $('.myCheckbox').prop('checked');
                 console.log("Successfully created user account with uid:", userData.uid);
-                console.log(cookie);
-
-
-
-                   UserDataRef.child(cookie).once("value", function (snapshot, authData) {
-            var snap = snapshot.val(); //строчка раз
-            UserDataRef.child(userData.uid).set(snap); //строчка два
-                       UserDataRef.child(cookie).update({
-                        "name": name
+                UserDataRef.child(cookie).once("value", function (snapshot, authData) {
+                    var snap = snapshot.val(); //строчка раз
+                    UserDataRef.child(userData.uid).set(snap); //строчка два
+                    UserDataRef.child(snap.uid).remove(); //сточка три
+                    cookie = userData.uid;
+                    UserDataRef.child(cookie).update({
+                        "name": name,
+                        "provider": null
                     });
-            UserDataRef.child(snap.uid).remove(); //сточка три
-                       console.log(cookie);
-                       cookie = userData.uid;
-                       console.log(cookie);
-        });
-
-
-
-
+                });
                 if (remember === true) {
 
                     //эти куки заменяют куки анонима, нужно брать от него!!
