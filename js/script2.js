@@ -1,5 +1,7 @@
 $(document).ready(function () {
     //подключаем ветку wishes в firebase
+    // var WishRef = new Firebase('https://iwish.firebaseio.com/wishes');
+
     var DataRef = new Firebase('https://iwish.firebaseio.com');
     //подключаем ветку users в firebase
     var UserDataRef = new Firebase('https://iwish.firebaseio.com/users');
@@ -149,7 +151,7 @@ $(document).ready(function () {
     myobject.addattr = function (tt) {
         count++;
         if (next_div === div1) {
-            myobject.attr1 = myobject.attr1 + '"wish' + count + '":"' + tt + '"';
+            myobject.attr1 = tt; //= myobject.attr1 + '"wish' + count + '":"' + tt + '"';
             next_div = div2;
             $('#container').html(next_div);
             count = 0;
@@ -290,34 +292,43 @@ $(document).ready(function () {
         str = str.substring(0, str.length - 1);
         myobject.attr4 = str;
         console.log(myobject);
-        var wishes= '{' + myobject.attr1 + '}';
-        var json_wishes = JSON.parse(wishes);
+        wishes = myobject.attr1;
+        console.log(wishes);
+        //   var wishes = myobject.attr1;
+        // var json_wishes = JSON.parse(wishes);
         var reasons = '{' + myobject.attr2 + '}';
         var json_reasons = JSON.parse(reasons);
         var hedges = '{' + myobject.attr3 + '}';
         var json_hedges = JSON.parse(hedges);
         var prises = '{' + myobject.attr4 + '}';
         var json_prises = JSON.parse(prises);
-        console.log("qwert", json_wishes);
-        console.log("asdf", reasons);
+        //    console.log(json_wishes);
         console.log(json_reasons);
         console.log(json_hedges);
         console.log(json_prises);
+        console.log(wishes);
+
+        UserDataRef.child(cookie).update({
+            "wishes": wishes
+        });
+        var WishRef = new Firebase('https://iwish.firebaseio.com/users/' + cookie);
 
         var testext = {
-            "wishes": json_wishes,
+
             "reasons": json_reasons,
             "heges": json_hedges,
             "prices": json_prises,
         };
-        UserDataRef.child(cookie).update(testext);
+        WishRef.child(wishes).update(testext);
+        //  UserDataRef.child(cookie/wishes).update(testext);
+        //   UserDataRef.child(cookie/wishes).update(testext2);
 
-/*      показ введенных данных
-        $('#list').html(myobject.attr1);
-        $('#list2').html("ваши причины:" + " " + myobject.attr2);
-        $('#list3').html("ваши преграды:" + " " + myobject.attr3);
-        $('#list4').html("ваши жертвы:" + " " + myobject.attr4);
-        */
+        /*      показ введенных данных
+                $('#list').html(myobject.attr1);
+                $('#list2').html("ваши причины:" + " " + myobject.attr2);
+                $('#list3').html("ваши преграды:" + " " + myobject.attr3);
+                $('#list4').html("ваши жертвы:" + " " + myobject.attr4);
+                */
 
         if (next_div === div4) {
             next_div = div5;
@@ -372,7 +383,7 @@ $(document).ready(function () {
 
                     //эти куки заменяют куки анонима, нужно брать от него!!
                     console.log('проверка перезаписи', cookie);
-                    $.cookie('userId', userData.uid);
+                    // $.cookie('userId', userData.uid);
                 } else {};
             }
         });
