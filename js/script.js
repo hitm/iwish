@@ -76,56 +76,78 @@ $(document).ready(function () {
     var next_div = div1;
 
     myobject.addattr = function (tt) {
-        count++;
-        if (next_div === div1) {
-            myobject.attr1 = tt; //= myobject.attr1 + '"wish' + count + '":"' + tt + '"';
-            next_div = div2;
-            $('#container').html(next_div);
-            count = 0;
-        } else if (next_div === div2) {
-            myobject.attr2 = myobject.attr2 + '"reason' + count + '":"' + tt + '",';
-            $('#list').html(myobject.attr2);
-        } else if (next_div === div3) {
-            myobject.attr3 = myobject.attr3 + '"hedge' + count + '":"' + tt + '",';
-            $('#list').html(myobject.attr3);
-        } else if (next_div === div4) {
-            myobject.attr4 = myobject.attr4 + '"price' + count + '":"' + tt + '",';
-            $('#list').html(myobject.attr4);
-        } else if (next_div === div5) {
-            $('#login').html(div5);
+            count++;
+            if (next_div === div1) {
+                myobject.attr1 = tt; //= myobject.attr1 + '"wish' + count + '":"' + tt + '"';
+                next_div = div2;
+                $('#container').html(next_div);
+                count = 0;
+            } else if (next_div === div2) {
+                myobject.attr2 = myobject.attr2 + '"reason' + count + '":"' + tt + '",';
+                $('#list').html(myobject.attr2);
+            } else if (next_div === div3) {
+                myobject.attr3 = myobject.attr3 + '"hedge' + count + '":"' + tt + '",';
+                $('#list').html(myobject.attr3);
+            } else if (next_div === div4) {
+                myobject.attr4 = myobject.attr4 + '"price' + count + '":"' + tt + '",';
+                $('#list').html(myobject.attr4);
+            } else if (next_div === div5) {
+                $('#login').html(div5);
+            }
         }
-    }
+        //переход на страницу пользователя
+    $('.navbar').on('click', '#userpage', function () {
+        createuserpage(cookie);
+        $('#container').html(div_userpage);
+    });
 
-    var createuserpage = function (id) {
+    function createuserpage(id) {
+
+        /*
+        попытка номер 2
+        UserDataRef.child(id).once("value", function (snapshot) {
+            var snap = snapshot.val(); //строчка раз
+            console.log(snap);
+            var qwe = snapshot.child(id + '/wishes/1у3у1у/heges');
+            console.log(qwe);
+            var heges1 = qwe.val();
+            console.log(heges1);
+        });
+
+        */
+
         UserDataRef.once("value", function (snapshot) {
             var idSnapshot = snapshot.child(id);
-          //  var myWishes = idSnapshot.child("wishes");
+            //  var myWishes = idSnapshot.child("wishes");
             var outid = idSnapshot.val();
-            var qwer = idSnapshot.child("wishes/1y3y1y");
+            //       var qwer = idSnapshot.child("wishes/1y3y1y");
             console.log(outid);
             var qwe = snapshot.child(id + '/wishes/1у3у1у/heges');
+            console.log(qwe);
             var heges1 = qwe.val();
             console.log(heges1);
             var wish1 = (Object.keys(outid.wishes)); //получение ключей желаний внутри юзера в виде "wish1[1]"
             var x = wish1[2];
-      //      var myWishes = idSnapshot.child("wishes/" + wish1);
-      //      var myHedges = idSnapshot.child("wishes/" + wish1 + "/heges");
-      //      var asdf = myHedges.val();
-      //      var wish1 = (Object.keys(myHedges))
-      //      console.log(wish1);
-      //     console.log(asdf);
-      //      console.log(myHedges.heges);
-      //      console.log(myWishes);
-              var thiswish = outid.wishes;
+            //      var myWishes = idSnapshot.child("wishes/" + wish1);
+            //      var myHedges = idSnapshot.child("wishes/" + wish1 + "/heges");
+            //      var asdf = myHedges.val();
+            //      var wish1 = (Object.keys(myHedges))
+            //      console.log(wish1);
+            //     console.log(asdf);
+            //      console.log(myHedges.heges);
+            //      console.log(myWishes);
+            var thiswish = outid.wishes;
 
-                console.log(thiswish);
-                console.log(wish1);
+            console.log(thiswish);
+            console.log(wish1);
 
-            var qwe = snapshot.child(id + '/wishes/' + wish1[1] +'/heges');
+            var qwe = snapshot.child(id + '/wishes/' + wish1[1] + '/heges');
             var heges1 = qwe.val();
             console.log(heges1);
             var hegess = (Object.keys(heges1));
             console.log(hegess);
+            (Object.keys(qwe.val()))
+
 
             //var hdgs = thiswish.heges; //пока неверно определена, не работает. продолжить работу с этого места..
             //  console.log(thiswish);
@@ -151,36 +173,99 @@ $(document).ready(function () {
 
     //вторая тестовая кнопка
     $('.navbar').on('click', '#test2', function () {
-        console.log('тестируем вторую кнопку');
-        //при нажатии устанавливаем новое содержание старого пользователя
-        //   var Ref = new Firebase('https://iwish.firebaseio.com/users/');
-        UserDataRef.child(cookie).once("value", function (snapshot, authData) {
-            console.log('все о пользователе', snapshot.val());
-            //      authData = 'test';
-            json_reasons = '123';
-            json_hedges = '456';
-            json_prises = '789';
-            var testext = {
-                "reasons": json_reasons,
-                "heges": json_hedges,
-                "prices": json_prises,
-                "uid": 'фыва',
-                "name": 'олдж',
-            };
-            var newuid = {
-                cookie: 'йцукен',
-            };
-            UserDataRef.child(cookie).update(testext);
-            UserDataRef.update(newuid);
-            console.log();
+
+
+        ref.orderByChild("wishes").once("child_added", function (snapshot) {
+            // console.log(snapshot.val());
+
+            //  wishes = "1y3y1y";
+            console.log(snapshot.val());
+            console.log(snapshot.val().wishes);
+            var arr = Object.keys(snapshot.val().wishes);
+
+            arr.forEach(function (item, i, arr) {
+                console.log(i, item);
+                console.log(snapshot.val().wishes);
+                console.log(Object.keys(snapshot.val().wishes));
+                DataRef = new Firebase('https://iwish.firebaseio.com/' + cookie);
+                DataRef.child('wishes').once("value", function (snapshot) {
+                    var snap = snapshot.val(); //строчка раз
+                    console.log(snap);
+                });
+            });
+
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+
+    });
+
+    //третья тестовая кнопка
+    $('.navbar').on('click', '#test3', function () {
+        console.log('третья кнопка');
+        count = 0;
+        var ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes");
+        ref.orderByValue().on("child_added", function (snapshot) {
+            count++;
+            console.log("wish" + count + " " + snapshot.key());
+            qwerty = snapshot.key();
+            ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty);
+            ref.orderByValue().on("value", function (snapshot) {
+                count = 0;
+                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/reasons");
+                ref.orderByValue().on("child_added", function (snapshot) {
+                    count++;
+                    console.log("reason" + count + " " + snapshot.val());
+                });
+                count = 0;
+                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/heges");
+                ref.orderByValue().on("child_added", function (snapshot) {
+                    count++;
+                    console.log("hedge" + count + " " + snapshot.val());
+                });
+                count = 0;
+                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/prices");
+                ref.orderByValue().on("child_added", function (snapshot) {
+                    count++;
+                    console.log("price" + count + " " + snapshot.val());
+                });
+            });
         });
     });
 
-    //переход на страницу пользователя
-    $('.navbar').on('click', '#userpage', function () {
-        createuserpage(cookie);
-        $('#container').html(div_userpage);
-    });
+
+    //загрузка всех желаний пользователя с их иерархией
+    function wishLoad() {
+        console.log('третья кнопка');
+        count = 0;
+        var ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes");
+        ref.orderByValue().on("child_added", function (snapshot) {
+            count++;
+            console.log("wish" + count + " " + snapshot.key());
+            qwerty = snapshot.key();
+            ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty);
+            ref.orderByValue().on("value", function (snapshot) {
+                count = 0;
+                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/reasons");
+                ref.orderByValue().on("child_added", function (snapshot) {
+                    count++;
+                    console.log("reason" + count + " " + snapshot.val());
+                });
+                count = 0;
+                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/heges");
+                ref.orderByValue().on("child_added", function (snapshot) {
+                    count++;
+                    console.log("hedge" + count + " " + snapshot.val());
+                });
+                count = 0;
+                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/prices");
+                ref.orderByValue().on("child_added", function (snapshot) {
+                    count++;
+                    console.log("price" + count + " " + snapshot.val());
+                });
+            });
+        });
+    };
 
     //сброс кукисов
     $('.navbar').on('click', '#reset', function () {
