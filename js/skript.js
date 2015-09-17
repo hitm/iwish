@@ -1,194 +1,396 @@
-$(document).ready(function(){
+$(document).ready(function () {
+    //подключаем ветку wishes в firebase
+    // var WishRef = new Firebase('https://iwish.firebaseio.com/wishes');
 
-    var wishDataRef = new Firebase('https://iwish.firebaseio.com/wishes');
-    var online = 0;
-    var my_wish = "";
-    var my_reason= "";
-    var my_hedge= "";
-    var my_price= "";
-    var step=1;
+    var DataRef = new Firebase('https://iwish.firebaseio.com');
+    //подключаем ветку users в firebase
+    var UserDataRef = new Firebase('https://iwish.firebaseio.com/users');
+    //подключаем ветку анонимных users в firebase
+    var ref = new Firebase('https://iwish.firebaseio.com/users');
+    var myobject = {
+        attr1: '',
+        attr2: '',
+        attr3: '',
+        attr4: ''
+    };
+    /*
+    пробы алертов при отсутствии анонимов
 
+    если аноним зашел, надо привязать куки к нему,  а не создавать новые. если зашел человек, не должны создаваться новые анонимы
 
-    console.log("qqq");
-$("button").click(function () {
-  var div_online = '<div id="online_div"><p>Вы онлайн</p><button type="submit" class="btn btn-primary" id="chmyDiv2">поменять</button></div>';
-       $('.hero-unit').html(div_online);
-       step=step+1;
-    console.log(step);
+            if (typeof authData === "undefined") {
+                alert("анонимус не определен")
+            } else {
+                alert("анонимус определен")
+            };
 
-     });
+     if (typeof userId === "undefined") {
+                alert("айдишник не определен")
+            } else {
+                alert("айдишник определен")
+            };
 
-if(step===1){
-    $("button").click(function () {
-        var div_wish = '<div id="wish_div"><h1>Привет!</h1> <p>Пришло время загадать своё первое желание!</p><input type="text" id="wishInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toreason" >Захотеть &raquo;</button></div>';
-        $('.hero-unit').html(div_wish);
-        step=step+1;
-        console.log(step);
-    });
-}
+    */
 
-    if(step===2){
-       $("button").click(function () {
-           var div_reason = '<div><h1>причина</h1><input type="text" id="reasonInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="tohedge" >Захотеть &raquo;</button></div>';
-           $('.hero-unit').html(div_reason);
-           step=step+1;
-           console.log(step);
-       });
-    }
+    //куки по айди пользователя
+    var cookie = $.cookie('userId');
+    console.log("Куки по айди пользователя:", cookie);
 
-        if(step===3){
-            $("button").click(function () {
-                var div_hedge = '<div><h1>преграда</h1><input type="text" id="hedgeInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="toprice" >Захотеть &raquo;</button></div>';
-                $('.hero-unit').html(div_reason);
-                step=step+1;
-                console.log(step);
-            });
-        }
-        else{
-           $("#toprice").click(function () {
-               var div_price = '<div><h1>жертва</h1><input type="text" id="priceInput" placeholder="я хочу"><button type="submit" class="btn btn-primary" id="nextPage" >Захотеть &raquo;</button></div>';
-               $('.hero-unit').html(div_reason);
-               console.log("t");
-               step=step+1;
-            });
-        }
-});
-
-       // $(this).replaceWith('<div id="price"><h1>жертва</h1><button type="submit" class="btn btn-primary">Захотеть</button></div>');
-
-
-  /*
-    $('chmyDiv1').on('click', function (){
-       // my_wish = $('#wishInput').val();
-       // wishDataRef.child(my_wish).set({wish: my_wish});
-       // var div_step = '<div>шаг 2 из 4</div>';
-       // $('.hero-unit').html(div_step + div_reason);
-        $('.hero-unit').html(div_online);
-        console.log("wish");
-        return false
-     });
-
-    if(chmyDiv1!=0){
-
-        console.log("!=0");
-
-    }
-    else{
-         console.log("=0");
-
-    }
-
-       console.log("next step");
+    //глобальная пустая страница пользователя
+    var div_userpage = '';
 
 
 
-
-
-
-
-
-
-   console.log("asd");
-
-
- //   $('.hero-unit').html(div_price);
-
-
-
-   /* $("#myDiv1").click(function () {
-        $(this).replaceWith('<div id="price"><h1>жертва</h1><button type="submit" class="btn btn-primary">Захотеть</button></div>');
-    });
-
-    $("#price").click(function () {
-        $(this).replaceWith('<div id="hedge"><h1>преграда</h1><button type="submit" class="btn btn-primary">Захотеть</button></div>');
-    });
-
-
-//$('#init').on('click',function () {
-
-  // Заменяем параграф в #myDiv1 новым параграфом
- // $('#myDiv1>p').replaceWith( "<p>Новый параграф с текстомqwe</p>" );
-
- // });
-*/
-
-
-
-/*
- $('#wish').on('click', function wishFunction(){
-        my_wish = $('#wishInput').val();
-        wishDataRef.child(my_wish).set({wish: my_wish});
-        var div_step = '<div>шаг 2 из 4</div>';
-        $('.hero-unit').html(div_step + div_reason);
-        console.log("wish");
-     });
-
-   /*
-    if(online === 0){
-        var div_step = '<div>шаг 1 из 4</div>';
-            $('.hero-unit').html(div_step + div_wish);
-        }
-    else{
-
-    $('.hero-unit').html(div_online);
+    // проба куков анонима
+    //если куки нули - то дать анонима, иначе загрузить их (не получается сделать анонима регистрированным...)
+    if (cookie === 'null' || typeof cookie === 'undefined') {
+        console.log('пустые куки');
+        remember: "sessionOnly";
+        ref.authAnonymously(function (error, authData) {
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                console.log("Authenticated successfully with payload:", authData);
+                authData.nick = 'Guest';
+                authData.auth = null;
+                ref.child(authData.uid).set(authData);
+                console.log("смотрим содержимое объекта authData:", authData);
+                console.log("смотрим содержимое authData.uid:", authData.uid);
+            }
+            $.cookie('userId', authData.uid);
+            cookie = $.cookie('userId');
+        });
+    } else {
+        console.log('есть куки', $.cookie('userId'));
+        console.log(cookie);
     };
 
-     $('#wish').on('click', function wishFunction(){
-        my_wish = $('#wishInput').val();
-        wishDataRef.child(my_wish).set({wish: my_wish});
-        var div_step = '<div>шаг 2 из 4</div>';
-        $('.hero-unit').html(div_step + div_reason);
-        console.log("wish");
-        return false
-     });
+    var count = 0;
+    var div1 = '<div id="one"><input type="text" id="text1" placeholder="wish"><button type="submit" id="btn1">add wish</button></div>';
+    var div2 = '<div id="two"><input type="text" id="text2" placeholder="reason"><button type="submit" id="btn2">add reason</button><button type="submit" id="next">next</button></div><div id="list"></div>';
+    var div3 = '<div id="three"><input type="text" id="text3" placeholder="hedge"><button type="submit" id="btn3">add3</button><button type="submit" id="next">next</button></div><div id="list"></div>';
+    var div4 = '<div id="four"><input type="text" id="text4" placeholder="piece""><button type="submit" id="btn4">add prices</button><button type="submit" id="finish">finish</button></div><div id="list"></div><div id="list2"></div><div id="list3"></div><div id="list4"></div><div id="login"></div>';
+    var div5 = '<div id="five"><input type="text" id="nickname" placeholder="nickname"><input type="email" class="form-control" id="email" placeholder="Email address" required autofocus><input type="password" class="form-control" id="pass" placeholder="Password" required> <br><div id=forspin></div><label class="checkbox"><br><input type="checkbox" class="myCheckbox" value="remember-me"> Remember me</label><br><button class="btn btn-lg btn-primary btn-block" id="btnreg">register</button><br><button class="btn btn-lg btn-primary btn-block" id="btnlog">login</button><br><button class="btn btn-lg btn-primary btn-block" id="btnanon">enter without registration</button></div>';
+    var div6 = '<div id="success">Success!</div>';
+    var spiner = '<div><i class="fa fa-spinner fa-lg fa-spin"></i></div>';
+    var next_div = div1;
 
-/*
-     $('#reason').on('click', function reasonFunction() {
-        my_reason = $('#reasonInput').val();
-        reasonDataRef.child(my_reason).set({reason: my_reason});
-        var div_step = '<div>шаг 3 из 4</div>';
-        $('.hero-unit').html(div_step + div_hedge);
-        console.log("hedge");
-        return false
-     });
+    myobject.addattr = function (tt) {
+        count++;
+        if (next_div === div1) {
+            myobject.attr1 = tt; //= myobject.attr1 + '"wish' + count + '":"' + tt + '"';
+            next_div = div2;
+            $('#container').html(next_div);
+            count = 0;
+        } else if (next_div === div2) {
+            myobject.attr2 = myobject.attr2 + '"reason' + count + '":"' + tt + '",';
+            $('#list').html(myobject.attr2);
+        } else if (next_div === div3) {
+            myobject.attr3 = myobject.attr3 + '"hedge' + count + '":"' + tt + '",';
+            $('#list').html(myobject.attr3);
+        } else if (next_div === div4) {
+            myobject.attr4 = myobject.attr4 + '"price' + count + '":"' + tt + '",';
+            $('#list').html(myobject.attr4);
+        } else if (next_div === div5) {
+            $('#login').html(div5);
+        }
+    }
+
+    var createuserpage = function (id) {
+        UserDataRef.once("value", function (snapshot) {
+            var idSnapshot = snapshot.child(id);
+          //  var myWishes = idSnapshot.child("wishes");
+            var outid = idSnapshot.val();
+            var qwer = idSnapshot.child("wishes/1y3y1y");
+            console.log(outid);
+            var qwe = snapshot.child(id + '/wishes/1у3у1у/heges');
+            var heges1 = qwe.val();
+            console.log(heges1);
+            var wish1 = (Object.keys(outid.wishes)); //получение ключей желаний внутри юзера в виде "wish1[1]"
+            var x = wish1[2];
+      //      var myWishes = idSnapshot.child("wishes/" + wish1);
+      //      var myHedges = idSnapshot.child("wishes/" + wish1 + "/heges");
+      //      var asdf = myHedges.val();
+      //      var wish1 = (Object.keys(myHedges))
+      //      console.log(wish1);
+      //     console.log(asdf);
+      //      console.log(myHedges.heges);
+      //      console.log(myWishes);
+              var thiswish = outid.wishes;
+
+                console.log(thiswish);
+                console.log(wish1);
+
+            var qwe = snapshot.child(id + '/wishes/' + wish1[1] +'/heges');
+            var heges1 = qwe.val();
+            console.log(heges1);
+            var hegess = (Object.keys(heges1));
+            console.log(hegess);
+
+            //var hdgs = thiswish.heges; //пока неверно определена, не работает. продолжить работу с этого места..
+            //  console.log(thiswish);
+            div_userpage = '<div class="div_userpage"><div id="user_info" class="col-md-12"><div id="avatar" class="col-md-2"><img src="http://lorempixel.com//100/150/people"></div><div id= "userhead" class="col-md-9"><h1>' + outid.name + '</h1><p>user_info</p><p>user_info</p></div><div id="rank" class="col-md-1"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"></div></div><div id="my_wishes" class="col-md-6"><h1>my_wishes</h1><div id="accordeon" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><span><h3 class="panel-title"><a href="#collapse-1" data-parent="#accordeon" data-toggle="collapse">' + wish1[0] + '</a></h3></span></div><div id="collapse-1" class="panel-collapse collapse"><div class="panel-body"><p>' + wish1[0] + '</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-2" data-parent="#accordeon" data-toggle="collapse">' + wish1[1] + '</a></h3></div><div id="collapse-2" class="panel-collapse collapse"><div class="panel-body"><p>' + wish1[1] + '</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-3" data-parent="#accordeon" data-toggle="collapse">' + wish1[2] + '</a></h3></div><div id="collapse-3" class="panel-collapse collapse"><div class="panel-body"><p>' + wish1[1] + '</p></div></div></div></div></div><div class = "wish"><span></div></div><div id="others_wishes" class="col-md-6"><h1>other_wishes</h1><div id="accordeon2" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-4" data-parent="#accordeon2" data-toggle="collapse">открыть 1 слайд</a></h3></div><div id="collapse-4" class="panel-collapse collapse"><div class="panel-body"><p>1ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-5" data-parent="#accordeon2" data-toggle="collapse">открыть 2 слайд</a></h3></div><div id="collapse-5" class="panel-collapse collapse"><div class="panel-body"><p>2ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-6" data-parent="#accordeon2" data-toggle="collapse">открыть 3 слайд</a></h3></div><div id="collapse-6" class="panel-collapse collapse"><div class="panel-body"><p>3ыыыыыыыыыыыыыыыы</p></div></div></div></div></div></div>';
+            $('#container').html(div_userpage);
+        });
+    };
+
+    //тестовая кнопка кукисов
+    $('.navbar').on('click', '#testcookie', function () {
+        console.log(cookie);
+
+    });
+
+    //тестовая кнопка
+    $('.navbar').on('click', '#testbutton', function () {
+        UserDataRef.child(cookie).once("value", function (snapshot, authData) {
+            var snap = snapshot.val(); //строчка раз
+            UserDataRef.child('new_id').set(snap); //строчка два
+            UserDataRef.child(snap.uid).remove(); //сточка три
+        });
+    });
+
+    //вторая тестовая кнопка
+    $('.navbar').on('click', '#test2', function () {
+        console.log('тестируем вторую кнопку');
+        //при нажатии устанавливаем новое содержание старого пользователя
+        //   var Ref = new Firebase('https://iwish.firebaseio.com/users/');
+        UserDataRef.child(cookie).once("value", function (snapshot, authData) {
+            console.log('все о пользователе', snapshot.val());
+            //      authData = 'test';
+            json_reasons = '123';
+            json_hedges = '456';
+            json_prises = '789';
+            var testext = {
+                "reasons": json_reasons,
+                "heges": json_hedges,
+                "prices": json_prises,
+                "uid": 'фыва',
+                "name": 'олдж',
+            };
+            var newuid = {
+                cookie: 'йцукен',
+            };
+            UserDataRef.child(cookie).update(testext);
+            UserDataRef.update(newuid);
+            console.log();
+        });
+    });
+
+    //переход на страницу пользователя
+    $('.navbar').on('click', '#userpage', function () {
+        createuserpage(cookie);
+        $('#container').html(div_userpage);
+    });
+
+    //сброс кукисов
+    $('.navbar').on('click', '#reset', function () {
+        console.log('sbros');
+        next_div = div1;
+        $.cookie('userId', null);
+        $('#container').html(next_div);
+        cookie = null;
+    });
+
+    //записывваем в контейнер стартовую часть
+    $('#container').html(div1);
+
+    //    добавление желания
+    $('#container').on('click', '#btn1', function () {
+        var text = $('#text1').val();
+        myobject.addattr(text);
+    });
+
+    //    добавление причины
+    $('#container').on('click', '#btn2', function () {
+        var text = $('#text2').val();
+        myobject.addattr(text);
+        $('#text2').val('');
+    });
+
+    //    добавление проблемы
+    $('#container').on('click', '#btn3', function () {
+        var text = $('#text3').val();
+        myobject.addattr(text);
+        $('#text3').val('');
+    });
+
+    //    добавление жертвы
+    $('#container').on('click', '#btn4', function () {
+        var text = $('#text4').val();
+        myobject.addattr(text);
+        $('#text4').val('');
+    });
+
+    //    переход к следующему шагу с обрезкой последней запятой
+    $('#container').on('click', '#next', function () {
+        if (next_div === div2) {
+            next_div = div3;
+            var str = myobject.attr2;
+            str = str.substring(0, str.length - 1);
+            myobject.attr2 = str;
+        } else if (next_div === div3) {
+            next_div = div4;
+            var str = myobject.attr3;
+            str = str.substring(0, str.length - 1);
+            myobject.attr3 = str;
+        }
+        $('#container').html(next_div);
+        count = 0;
+    });
+
+    //    отправка жертвы, ввод информации в базу и переход к регистрации
+    $('#container').on('click', '#finish', function () {
+
+        var str = myobject.attr4;
+        str = str.substring(0, str.length - 1);
+        myobject.attr4 = str;
+        console.log(myobject);
+        wishes = myobject.attr1;
+        console.log(wishes);
+        //   var wishes = myobject.attr1;
+        // var json_wishes = JSON.parse(wishes);
+        var reasons = '{' + myobject.attr2 + '}';
+        var json_reasons = JSON.parse(reasons);
+        var hedges = '{' + myobject.attr3 + '}';
+        var json_hedges = JSON.parse(hedges);
+        var prises = '{' + myobject.attr4 + '}';
+        var json_prises = JSON.parse(prises);
+        //    console.log(json_wishes);
+        console.log(json_reasons);
+        console.log(json_hedges);
+        console.log(json_prises);
+        console.log(wishes);
+
+        WishRef = UserDataRef.child(cookie);
+        inWishRef = WishRef.child('wishes');
+        inSomeWishRef = inWishRef.child(wishes);
+
+        inSomeWishRef.update({
+
+            "reasons": json_reasons,
+            "heges": json_hedges,
+            "prices": json_prises,
+        });
+
+
+        /*      показ введенных данных
+                $('#list').html(myobject.attr1);
+                $('#list2').html("ваши причины:" + " " + myobject.attr2);
+                $('#list3').html("ваши преграды:" + " " + myobject.attr3);
+                $('#list4').html("ваши жертвы:" + " " + myobject.attr4);
+                */
+
+        if (next_div === div4) {
+            next_div = div5;
+            console.log("перешли к 5");
+            $('#container').html(next_div);
+        } else {
+            console.log("какая-то ошибка");
+        }
+    });
+
+    //анон вход
+    $('#container').on('click', '#btnanon', function () {});
+
+    //    регистрация
+    $('#container').on('click', '#btnreg', function () {
+        $('#forspin').html(spiner);
+        console.log("начало регистрации");
+        var email = $('#email').val();
+        var password = $('#pass').val();
+        var name = $('#nickname').val();
+        DataRef.createUser({
+            email: email,
+            password: password
+        }, function (error, userData) {
+            console.log("email");
+            console.log("password");
+            $('#forspin').html('');
+            if (error) {
+                console.log("Error creating user:", error);
+            } else {
+                var remember = $('.myCheckbox').prop('checked');
+                console.log("Successfully created user account with uid:", userData.uid);
+                UserDataRef.child(cookie).once("value", function (snapshot, authData) {
+                    var snap = snapshot.val(); //строчка раз
+                    UserDataRef.child(userData.uid).set(snap); //строчка два
+                    UserDataRef.child(snap.uid).remove(); //сточка три
+                    cookie = userData.uid;
+                    UserDataRef.child(cookie).update({
+                        "email": email,
+                        "name": name,
+                        "provider": null,
+                        "nick": null,
+                        "uid": null,
+                        "expires": null,
+                        "token": null
+                    });
+                });
+                if (remember === true) {
+
+                    //эти куки заменяют куки анонима, нужно брать от него!!
+                    //console.log('проверка перезаписи', cookie);
+                    //$.cookie('userId', userData.uid);
+                } else {};
+            }
+        });
+    });
+
+    //    вход
+    $("#container").on("click", '#btnlog', function () {
+        $('#forspin').html(spiner);
+        console.log("попытка входа");
+        var email = $('#email').val();
+        var password = $('#pass').val();
+        DataRef.authWithPassword({
+            email: email,
+            password: password
+        }, function (error, authData) {
+            $('#forspin').html('');
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                console.log("Authenticated successfully with payload:", authData);
+                //          console.log('проверка перезаписи2', cookie, authData);
+                cookie = authData.uid;
+
+                WishRef = UserDataRef.child(cookie);
+                WishRef.update({
+                    "token": authData.token
+                });
+                //                console.log('проверка перезаписи3', cookie);
+                console.log(authData.uid);
+                var remember = $('.myCheckbox').prop('checked');
+                console.log(remember);
+                if (remember === true) {
+                    $.cookie('userId', cookie);
+                } else {};
+                createuserpage(cookie);
+                $('#container').html(div_userpage); //переходим на страницу пользователя
+            }
+        });
+    });
+
+    //удаление кукисов
+    $('#container').on('click', '#delkoocies', function () {
+        $.cookie('userId', null);
+    });
 
 
 
-
-
-
-
-*/
-
-
-
-
-    /*
-
-     $('#add_reason').on('click', function() {
-        reason = $('#reasonInput').val();
-        myDataRef.child(my_wish).set({wish: my_wish});
-        var div_step = '<div id="step">шаг 3 из 4</div>';
-        $('.hero-unit').html(div_step + div_hedge);
-        console.log("hedge");
-        //var myDataRef = new Firebase('https://iwish.firebaseio.com/wishes/' + wish + ');
-     });
-
-
-
-
-     $('#add_hedge').on('click', function() {
-        hedge = $('#hedgeInput').val();
-        myDataRef.child(reason).set({reason: reason});
-        var div_step = '<div id="step">шаг 3 из 4</div>';
-        $('.hero-unit').html(div_step + div_hedge);
-        console.log("hedge");
-        //var myDataRef = new Firebase('https://iwish.firebaseio.com/wishes/' + wish + ');
-     });
-    */
-         /*    var btn_id = "";
-        var btn_add = '<button type="submit" class="btn btn-primary" id="add" >добавить</button>';*/
-
-
-
-
+    //пример вывода случайной цитаты
+    function sluchaynaya_citata() {
+        // Массив, который содержит цитаты-строки:
+        var citati = [
+    '123',
+    'йцу',
+    'фыв',
+    'ячс'
+  ];
+        // Генерация случайного номера для выборки из массива citati:
+        var nomer = Math.round(Math.random() * (citati.length - 1));
+        // Возвращаем строку:
+        return citati[nomer];
+    }
+    document.getElementById("random_citata").innerHTML = sluchaynaya_citata();
+});
