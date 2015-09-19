@@ -308,9 +308,8 @@ $(document).ready(function () {
         if (next_div === div4) {
             next_div = div5;
             console.log("перешли к 5");
-
-
-            if (typeOfUser === 'anonymus' || typeOfUser === null) {
+//todo проверка анонимности делается только по кнопке test3, надо решить, куда вставить эту функцию
+            if (typeOfUser === 'anonymous' || typeOfUser === null) {
 
                 $('#container').html(next_div);
             } else {
