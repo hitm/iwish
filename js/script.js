@@ -1,7 +1,8 @@
 $(document).ready(function () {
     //подключаем ветку wishes в firebase
     // var WishRef = new Firebase('https://iwish.firebaseio.com/wishes');
-
+    //todo вычистить все snapshot, они во многих местах переопределяются
+    //todo не перезаписывать то, что дает нам firebase при регистрации, а только дополнять соответствующими желаниями
     var DataRef = new Firebase('https://iwish.firebaseio.com');
     //подключаем ветку users в firebase
     var UserDataRef = new Firebase('https://iwish.firebaseio.com/users');
@@ -13,6 +14,7 @@ $(document).ready(function () {
         attr3: '',
         attr4: ''
     };
+    var typeOfUser = '';
 
     //куки по айди пользователя
     var cookie = $.cookie('userId');
@@ -20,6 +22,22 @@ $(document).ready(function () {
 
     //глобальная пустая страница пользователя
     var div_userpage = '';
+
+
+    //проверка Аноним или Известный
+    var anonCheck = new Firebase('https://iwish.firebaseio.com/users/' + cookie + '/provider');
+
+    function readusertype() {
+        anonCheck.orderByValue().on("value", function (snapshot) {
+            console.log('проверка анонимности', snapshot.val());
+            typeOfUser = snapshot.val()
+        });
+    };
+
+    //третья тестовая кнопка
+    $('.navbar').on('click', '#test3', function () {
+        readusertype();
+    });
 
 
 
@@ -80,7 +98,7 @@ $(document).ready(function () {
         //переход на страницу пользователя
     $('.navbar').on('click', '#userpage', function () {
         createuserpage(cookie);
-        $('#container').html(div_userpage);
+        //  $('#container').html(div_userpage);
     });
 
     //тестовая кнопка кукисов
@@ -126,40 +144,42 @@ $(document).ready(function () {
         });
 
     });
+    /*
 
-    //третья тестовая кнопка
-    $('.navbar').on('click', '#test3', function () {
-        console.log('третья кнопка');
-        count = 0;
-        var ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes");
-        ref.orderByValue().on("child_added", function (snapshot) {
-            count++;
-            console.log("wish" + count + " " + snapshot.key());
-            qwerty = snapshot.key();
-            ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty);
-            ref.orderByValue().on("value", function (snapshot) {
-                count = 0;
-                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/reasons");
-                ref.orderByValue().on("child_added", function (snapshot) {
-                    count++;
-                    console.log("reason" + count + " " + snapshot.val());
-                });
-                count = 0;
-                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/heges");
-                ref.orderByValue().on("child_added", function (snapshot) {
-                    count++;
-                    console.log("hedge" + count + " " + snapshot.val());
-                });
-                count = 0;
-                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/prices");
-                ref.orderByValue().on("child_added", function (snapshot) {
-                    count++;
-                    console.log("price" + count + " " + snapshot.val());
+        //третья тестовая кнопка
+        $('.navbar').on('click', '#test3', function () {
+            console.log('третья кнопка');
+            count = 0;
+            var ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes");
+            ref.orderByValue().on("child_added", function (snapshot) {
+                count++;
+                console.log("wish" + count + " " + snapshot.key());
+                qwerty = snapshot.key();
+                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty);
+                ref.orderByValue().on("value", function (snapshot) {
+                    count = 0;
+                    ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/reasons");
+                    ref.orderByValue().on("child_added", function (snapshot) {
+                        count++;
+                        console.log("reason" + count + " " + snapshot.val());
+                    });
+                    count = 0;
+                    ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/heges");
+                    ref.orderByValue().on("child_added", function (snapshot) {
+                        count++;
+                        console.log("hedge" + count + " " + snapshot.val());
+                    });
+                    count = 0;
+                    ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/prices");
+                    ref.orderByValue().on("child_added", function (snapshot) {
+                        count++;
+                        console.log("price" + count + " " + snapshot.val());
+                    });
                 });
             });
         });
-    });
 
+    */
 
     //загрузка всех желаний пользователя с их иерархией
     function wishLoad() {
@@ -170,22 +190,22 @@ $(document).ready(function () {
             wishCount++;
             console.log("wish" + wishCount + " " + snapshot.key());
             qwerty = snapshot.key();
-            ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty);
+            var ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty);
             ref.orderByValue().on("value", function (snapshot) {
                 var reasonCount = 0;
-                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/reasons");
+                var ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/reasons");
                 ref.orderByValue().on("child_added", function (snapshot) {
                     reasonCount++;
                     console.log("reason" + reasonCount + " " + snapshot.val());
                 });
                 var hedgesCount = 0;
-                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/heges");
+                var ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/heges");
                 ref.orderByValue().on("child_added", function (snapshot) {
                     hedgesCount++;
                     console.log("hedge" + hedgesCount + " " + snapshot.val());
                 });
                 var pricesCount = 0;
-                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/prices");
+                var ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/prices");
                 ref.orderByValue().on("child_added", function (snapshot) {
                     pricesCount++;
                     console.log("price" + pricesCount + " " + snapshot.val());
@@ -205,7 +225,7 @@ $(document).ready(function () {
 
     //записывваем в контейнер стартовую часть
     onload = function () {
-        console.log("начинаем работу!")
+        console.log("начинаем работу c", cookie)
         $('#container').html(div1);
     };
 
@@ -261,7 +281,7 @@ $(document).ready(function () {
         myobject.attr4 = str;
         console.log("загружаем объект", myobject);
         wishes = myobject.attr1;
-         var reasons = '{' + myobject.attr2 + '}';
+        var reasons = '{' + myobject.attr2 + '}';
         var json_reasons = JSON.parse(reasons);
         var hedges = '{' + myobject.attr3 + '}';
         var json_hedges = JSON.parse(hedges);
@@ -288,9 +308,18 @@ $(document).ready(function () {
         if (next_div === div4) {
             next_div = div5;
             console.log("перешли к 5");
-            $('#container').html(next_div);
 
-            //todo если пользователь зарегистрирован, не на регистрацию, а сразу на страницу пользователя
+
+            if (typeOfUser === 'anonymus' || typeOfUser === null) {
+
+                $('#container').html(next_div);
+            } else {
+                createuserpage(cookie);
+            };
+
+
+
+            //todo протестировать "если пользователь зарегистрирован, не на регистрацию, а сразу на страницу пользователя"
 
         } else {
             console.log("какая-то ошибка в окончании задания желания");
@@ -327,7 +356,7 @@ $(document).ready(function () {
                     UserDataRef.child(cookie).update({
                         email: email,
                         name: name,
-                        provider: null,
+                        provider: 'user',
                         nick: null,
                         uid: null,
                         expires: null,
@@ -374,14 +403,14 @@ $(document).ready(function () {
                     $.cookie('userId', cookie);
                 } else {};
                 createuserpage(cookie);
-                $('#container').html(div_userpage); //переходим на страницу пользователя
+
             }
         });
     });
 
     function createuserpage(id) {
 
-        // todo использовать  function wishLoad() для получения данных по желаниям пользователя
+        // todo переопределить переменные и использовать  function wishLoad() для получения данных по желаниям пользователя (желательна проверка!)
 
 
         /*
