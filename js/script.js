@@ -13,24 +13,6 @@ $(document).ready(function () {
         attr3: '',
         attr4: ''
     };
-    /*
-    пробы алертов при отсутствии анонимов
-
-    если аноним зашел, надо привязать куки к нему,  а не создавать новые. если зашел человек, не должны создаваться новые анонимы
-
-            if (typeof authData === "undefined") {
-                alert("анонимус не определен")
-            } else {
-                alert("анонимус определен")
-            };
-
-     if (typeof userId === "undefined") {
-                alert("айдишник не определен")
-            } else {
-                alert("айдишник определен")
-            };
-
-    */
 
     //куки по айди пользователя
     var cookie = $.cookie('userId');
@@ -100,61 +82,6 @@ $(document).ready(function () {
         createuserpage(cookie);
         $('#container').html(div_userpage);
     });
-
-    function createuserpage(id) {
-
-        /*
-        попытка номер 2
-        UserDataRef.child(id).once("value", function (snapshot) {
-            var snap = snapshot.val(); //строчка раз
-            console.log(snap);
-            var qwe = snapshot.child(id + '/wishes/1у3у1у/heges');
-            console.log(qwe);
-            var heges1 = qwe.val();
-            console.log(heges1);
-        });
-
-        */
-
-        UserDataRef.once("value", function (snapshot) {
-            var idSnapshot = snapshot.child(id);
-            //  var myWishes = idSnapshot.child("wishes");
-            var outid = idSnapshot.val();
-            //       var qwer = idSnapshot.child("wishes/1y3y1y");
-            console.log(outid);
-            var qwe = snapshot.child(id + '/wishes/1у3у1у/heges');
-            console.log(qwe);
-            var heges1 = qwe.val();
-            console.log(heges1);
-            var wish1 = (Object.keys(outid.wishes)); //получение ключей желаний внутри юзера в виде "wish1[1]"
-            var x = wish1[2];
-            //      var myWishes = idSnapshot.child("wishes/" + wish1);
-            //      var myHedges = idSnapshot.child("wishes/" + wish1 + "/heges");
-            //      var asdf = myHedges.val();
-            //      var wish1 = (Object.keys(myHedges))
-            //      console.log(wish1);
-            //     console.log(asdf);
-            //      console.log(myHedges.heges);
-            //      console.log(myWishes);
-            var thiswish = outid.wishes;
-
-            console.log(thiswish);
-            console.log(wish1);
-
-            var qwe = snapshot.child(id + '/wishes/' + wish1[1] + '/heges');
-            var heges1 = qwe.val();
-            console.log(heges1);
-            var hegess = (Object.keys(heges1));
-            console.log(hegess);
-            (Object.keys(qwe.val()))
-
-
-            //var hdgs = thiswish.heges; //пока неверно определена, не работает. продолжить работу с этого места..
-            //  console.log(thiswish);
-            div_userpage = '<div class="div_userpage"><div id="user_info" class="col-md-12"><div id="avatar" class="col-md-2"><img src="http://lorempixel.com//100/150/people"></div><div id= "userhead" class="col-md-9"><h1>' + outid.name + '</h1><p>user_info</p><p>user_info</p></div><div id="rank" class="col-md-1"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"></div></div><div id="my_wishes" class="col-md-6"><h1>my_wishes</h1><div id="accordeon" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><span><h3 class="panel-title"><a href="#collapse-1" data-parent="#accordeon" data-toggle="collapse">' + wish1[0] + '</a></h3></span></div><div id="collapse-1" class="panel-collapse collapse"><div class="panel-body"><p>' + wish1[0] + '</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-2" data-parent="#accordeon" data-toggle="collapse">' + wish1[1] + '</a></h3></div><div id="collapse-2" class="panel-collapse collapse"><div class="panel-body"><p>' + wish1[1] + '</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-3" data-parent="#accordeon" data-toggle="collapse">' + wish1[2] + '</a></h3></div><div id="collapse-3" class="panel-collapse collapse"><div class="panel-body"><p>' + wish1[1] + '</p></div></div></div></div></div><div class = "wish"><span></div></div><div id="others_wishes" class="col-md-6"><h1>other_wishes</h1><div id="accordeon2" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-4" data-parent="#accordeon2" data-toggle="collapse">открыть 1 слайд</a></h3></div><div id="collapse-4" class="panel-collapse collapse"><div class="panel-body"><p>1ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-5" data-parent="#accordeon2" data-toggle="collapse">открыть 2 слайд</a></h3></div><div id="collapse-5" class="panel-collapse collapse"><div class="panel-body"><p>2ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-6" data-parent="#accordeon2" data-toggle="collapse">открыть 3 слайд</a></h3></div><div id="collapse-6" class="panel-collapse collapse"><div class="panel-body"><p>3ыыыыыыыыыыыыыыыы</p></div></div></div></div></div></div>';
-            $('#container').html(div_userpage);
-        });
-    };
 
     //тестовая кнопка кукисов
     $('.navbar').on('click', '#testcookie', function () {
@@ -237,31 +164,31 @@ $(document).ready(function () {
     //загрузка всех желаний пользователя с их иерархией
     function wishLoad() {
         console.log('третья кнопка');
-        count = 0;
+        var wishCount = 0;
         var ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes");
         ref.orderByValue().on("child_added", function (snapshot) {
-            count++;
-            console.log("wish" + count + " " + snapshot.key());
+            wishCount++;
+            console.log("wish" + wishCount + " " + snapshot.key());
             qwerty = snapshot.key();
             ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty);
             ref.orderByValue().on("value", function (snapshot) {
-                count = 0;
+                var reasonCount = 0;
                 ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/reasons");
                 ref.orderByValue().on("child_added", function (snapshot) {
-                    count++;
-                    console.log("reason" + count + " " + snapshot.val());
+                    reasonCount++;
+                    console.log("reason" + reasonCount + " " + snapshot.val());
                 });
-                count = 0;
+                var hedgesCount = 0;
                 ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/heges");
                 ref.orderByValue().on("child_added", function (snapshot) {
-                    count++;
-                    console.log("hedge" + count + " " + snapshot.val());
+                    hedgesCount++;
+                    console.log("hedge" + hedgesCount + " " + snapshot.val());
                 });
-                count = 0;
+                var pricesCount = 0;
                 ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/prices");
                 ref.orderByValue().on("child_added", function (snapshot) {
-                    count++;
-                    console.log("price" + count + " " + snapshot.val());
+                    pricesCount++;
+                    console.log("price" + pricesCount + " " + snapshot.val());
                 });
             });
         });
@@ -277,7 +204,10 @@ $(document).ready(function () {
     });
 
     //записывваем в контейнер стартовую часть
-    $('#container').html(div1);
+    onload = function () {
+        console.log("начинаем работу!")
+        $('#container').html(div1);
+    };
 
     //    добавление желания
     $('#container').on('click', '#btn1', function () {
@@ -329,18 +259,17 @@ $(document).ready(function () {
         var str = myobject.attr4;
         str = str.substring(0, str.length - 1);
         myobject.attr4 = str;
-        console.log(myobject);
+        console.log("загружаем объект", myobject);
         wishes = myobject.attr1;
-        console.log(wishes);
-        //   var wishes = myobject.attr1;
-        // var json_wishes = JSON.parse(wishes);
-        var reasons = '{' + myobject.attr2 + '}';
+         var reasons = '{' + myobject.attr2 + '}';
         var json_reasons = JSON.parse(reasons);
         var hedges = '{' + myobject.attr3 + '}';
         var json_hedges = JSON.parse(hedges);
         var prises = '{' + myobject.attr4 + '}';
         var json_prises = JSON.parse(prises);
-        //    console.log(json_wishes);
+
+        console.log("загрузили:");
+        console.log(wishes);
         console.log(json_reasons);
         console.log(json_hedges);
         console.log(json_prises);
@@ -351,30 +280,24 @@ $(document).ready(function () {
         inSomeWishRef = inWishRef.child(wishes);
 
         inSomeWishRef.update({
-
             "reasons": json_reasons,
             "heges": json_hedges,
             "prices": json_prises,
         });
 
-
-        /*      показ введенных данных
-                $('#list').html(myobject.attr1);
-                $('#list2').html("ваши причины:" + " " + myobject.attr2);
-                $('#list3').html("ваши преграды:" + " " + myobject.attr3);
-                $('#list4').html("ваши жертвы:" + " " + myobject.attr4);
-                */
-
         if (next_div === div4) {
             next_div = div5;
             console.log("перешли к 5");
             $('#container').html(next_div);
+
+            //todo если пользователь зарегистрирован, не на регистрацию, а сразу на страницу пользователя
+
         } else {
-            console.log("какая-то ошибка");
+            console.log("какая-то ошибка в окончании задания желания");
         }
     });
 
-    //анон вход
+    //анон вход (не реализован!)
     $('#container').on('click', '#btnanon', function () {});
 
     //    регистрация
@@ -402,17 +325,17 @@ $(document).ready(function () {
                     UserDataRef.child(snap.uid).remove(); //сточка три
                     cookie = userData.uid;
                     UserDataRef.child(cookie).update({
-                        "email": email,
-                        "name": name,
-                        "provider": null,
-                        "nick": null,
-                        "uid": null,
-                        "expires": null,
-                        "token": null
+                        email: email,
+                        name: name,
+                        provider: null,
+                        nick: null,
+                        uid: null,
+                        expires: null,
+                        token: null
                     });
                 });
                 if (remember === true) {
-
+                    //todo проверка сохранения куков только при чекбоксе Запомнить, иначе не сохранять куки
                     //эти куки заменяют куки анонима, нужно брать от него!!
                     //console.log('проверка перезаписи', cookie);
                     //$.cookie('userId', userData.uid);
@@ -456,26 +379,66 @@ $(document).ready(function () {
         });
     });
 
+    function createuserpage(id) {
+
+        // todo использовать  function wishLoad() для получения данных по желаниям пользователя
+
+
+        /*
+        попытка номер 2
+        UserDataRef.child(id).once("value", function (snapshot) {
+            var snap = snapshot.val(); //строчка раз
+            console.log(snap);
+            var qwe = snapshot.child(id + '/wishes/1у3у1у/heges');
+            console.log(qwe);
+            var heges1 = qwe.val();
+            console.log(heges1);
+        });
+
+        */
+
+        UserDataRef.once("value", function (snapshot) {
+            var idSnapshot = snapshot.child(id);
+            //  var myWishes = idSnapshot.child("wishes");
+            var outid = idSnapshot.val();
+            //       var qwer = idSnapshot.child("wishes/1y3y1y");
+            console.log(outid);
+            var qwe = snapshot.child(id + '/wishes/1у3у1у/heges');
+            console.log(qwe);
+            var heges1 = qwe.val();
+            console.log(heges1);
+            var wish1 = (Object.keys(outid.wishes)); //получение ключей желаний внутри юзера в виде "wish1[1]"
+            var x = wish1[2];
+            //      var myWishes = idSnapshot.child("wishes/" + wish1);
+            //      var myHedges = idSnapshot.child("wishes/" + wish1 + "/heges");
+            //      var asdf = myHedges.val();
+            //      var wish1 = (Object.keys(myHedges))
+            //      console.log(wish1);
+            //     console.log(asdf);
+            //      console.log(myHedges.heges);
+            //      console.log(myWishes);
+            var thiswish = outid.wishes;
+
+            console.log(thiswish);
+            console.log(wish1);
+
+            var qwe = snapshot.child(id + '/wishes/' + wish1[1] + '/heges');
+            var heges1 = qwe.val();
+            console.log(heges1);
+            var hegess = (Object.keys(heges1));
+            console.log(hegess);
+            (Object.keys(qwe.val()))
+
+            //var hdgs = thiswish.heges; //пока неверно определена, не работает. продолжить работу с этого места..
+            //  console.log(thiswish);
+            div_userpage = '<div class="div_userpage"><div id="user_info" class="col-md-12"><div id="avatar" class="col-md-2"><img src="http://lorempixel.com//100/150/people"></div><div id= "userhead" class="col-md-9"><h1>' + outid.name + '</h1><p>user_info</p><p>user_info</p></div><div id="rank" class="col-md-1"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"><img src="http://lorempixel.com/g/50/50/"></div></div><div id="my_wishes" class="col-md-6"><h1>my_wishes</h1><div id="accordeon" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><span><h3 class="panel-title"><a href="#collapse-1" data-parent="#accordeon" data-toggle="collapse">' + wish1[0] + '</a></h3></span></div><div id="collapse-1" class="panel-collapse collapse"><div class="panel-body"><p>' + wish1[0] + '</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-2" data-parent="#accordeon" data-toggle="collapse">' + wish1[1] + '</a></h3></div><div id="collapse-2" class="panel-collapse collapse"><div class="panel-body"><p>' + wish1[1] + '</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-3" data-parent="#accordeon" data-toggle="collapse">' + wish1[2] + '</a></h3></div><div id="collapse-3" class="panel-collapse collapse"><div class="panel-body"><p>' + wish1[1] + '</p></div></div></div></div></div><div class = "wish"><span></div></div><div id="others_wishes" class="col-md-6"><h1>other_wishes</h1><div id="accordeon2" class="panel-group"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-4" data-parent="#accordeon2" data-toggle="collapse">открыть 1 слайд</a></h3></div><div id="collapse-4" class="panel-collapse collapse"><div class="panel-body"><p>1ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-5" data-parent="#accordeon2" data-toggle="collapse">открыть 2 слайд</a></h3></div><div id="collapse-5" class="panel-collapse collapse"><div class="panel-body"><p>2ыыыыыыыыыыыыыыыы</p></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a href="#collapse-6" data-parent="#accordeon2" data-toggle="collapse">открыть 3 слайд</a></h3></div><div id="collapse-6" class="panel-collapse collapse"><div class="panel-body"><p>3ыыыыыыыыыыыыыыыы</p></div></div></div></div></div></div>';
+            $('#container').html(div_userpage);
+        });
+    };
+
+
     //удаление кукисов
     $('#container').on('click', '#delkoocies', function () {
         $.cookie('userId', null);
     });
-
-
-
-    //пример вывода случайной цитаты
-    function sluchaynaya_citata() {
-        // Массив, который содержит цитаты-строки:
-        var citati = [
-    '123',
-    'йцу',
-    'фыв',
-    'ячс'
-  ];
-        // Генерация случайного номера для выборки из массива citati:
-        var nomer = Math.round(Math.random() * (citati.length - 1));
-        // Возвращаем строку:
-        return citati[nomer];
-    }
-    document.getElementById("random_citata").innerHTML = sluchaynaya_citata();
 });
