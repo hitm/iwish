@@ -1,9 +1,8 @@
 $(document).ready(function () {
-    //подключаем ветку wishes в firebase
-    // var WishRef = new Firebase('https://iwish.firebaseio.com/wishes');
     //todo вычистить все snapshot, они во многих местах переопределяются
     //todo не перезаписывать то, что дает нам firebase при регистрации, а только дополнять соответствующими желаниями
-    var DataRef = new Firebase('https://iwish.firebaseio.com');
+    var iwish = 'https://iwish.firebaseio.com';
+    var DataRef = new Firebase(iwish);
     //подключаем ветку users в firebase
     var UserDataRef = new Firebase('https://iwish.firebaseio.com/users');
     //подключаем ветку анонимных users в firebase
@@ -34,10 +33,7 @@ $(document).ready(function () {
         });
     };
 
-    //третья тестовая кнопка
-    $('.navbar').on('click', '#test3', function () {
-        readusertype();
-    });
+
 
 
 
@@ -144,42 +140,48 @@ $(document).ready(function () {
         });
 
     });
-    /*
 
-        //третья тестовая кнопка
-        $('.navbar').on('click', '#test3', function () {
-            console.log('третья кнопка');
-            count = 0;
-            var ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes");
-            ref.orderByValue().on("child_added", function (snapshot) {
-                count++;
-                console.log("wish" + count + " " + snapshot.key());
-                qwerty = snapshot.key();
-                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty);
-                ref.orderByValue().on("value", function (snapshot) {
-                    count = 0;
-                    ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/reasons");
-                    ref.orderByValue().on("child_added", function (snapshot) {
-                        count++;
-                        console.log("reason" + count + " " + snapshot.val());
-                    });
-                    count = 0;
-                    ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/heges");
-                    ref.orderByValue().on("child_added", function (snapshot) {
-                        count++;
-                        console.log("hedge" + count + " " + snapshot.val());
-                    });
-                    count = 0;
-                    ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/prices");
-                    ref.orderByValue().on("child_added", function (snapshot) {
-                        count++;
-                        console.log("price" + count + " " + snapshot.val());
-                    });
+
+    //третья тестовая кнопка
+    $('.navbar').on('click', '#test3', function () {
+        console.log('третья кнопка');
+        count = 0;
+        var ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes");
+        ref.orderByValue().on("child_added", function (snapshot) {
+            count++;
+            console.log("wish" + count + " " + snapshot.key());
+            qwerty = snapshot.key();
+            ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty);
+            ref.orderByValue().on("value", function (snapshot) {
+                count = 0;
+                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/reasons");
+                ref.orderByValue().on("child_added", function (snapshot) {
+                    count++;
+                    console.log("reason" + count + " " + snapshot.val());
+                });
+                count = 0;
+                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/heges");
+                ref.orderByValue().on("child_added", function (snapshot) {
+                    count++;
+                    console.log("hedge" + count + " " + snapshot.val());
+                });
+                count = 0;
+                ref = new Firebase("https://iwish.firebaseio.com/users/" + cookie + "/wishes/" + qwerty + "/prices");
+                ref.orderByValue().on("child_added", function (snapshot) {
+                    count++;
+                    console.log("price" + count + " " + snapshot.val());
                 });
             });
         });
+    });
 
-    */
+
+
+    //четвертая тестовая кнопка
+    $('.navbar').on('click', '#test4', function () {
+        readusertype();
+    });
+
 
     //загрузка всех желаний пользователя с их иерархией
     function wishLoad() {
@@ -308,24 +310,21 @@ $(document).ready(function () {
         if (next_div === div4) {
             next_div = div5;
             console.log("перешли к 5");
-//todo проверка анонимности делается только по кнопке test3, надо решить, куда вставить эту функцию
+
             if (typeOfUser === 'anonymous' || typeOfUser === null) {
 
                 $('#container').html(next_div);
             } else {
                 createuserpage(cookie);
             };
-
-
-
-            //todo протестировать "если пользователь зарегистрирован, не на регистрацию, а сразу на страницу пользователя"
+            //todo протестировать "если пользователь зарегистрирован, не на регистрацию, а сразу на страницу пользователя" - сейчас проверка анонимности делается только по кнопке test4, надо решить, куда вставить эту функцию
 
         } else {
             console.log("какая-то ошибка в окончании задания желания");
         }
     });
 
-    //анон вход (не реализован!)
+    //todo анон вход (не реализован!)
     $('#container').on('click', '#btnanon', function () {});
 
     //    регистрация
@@ -343,7 +342,7 @@ $(document).ready(function () {
             console.log("password");
             $('#forspin').html('');
             if (error) {
-                console.log("Error creating user:", error);
+                console.log(error);
             } else {
                 var remember = $('.myCheckbox').prop('checked');
                 console.log("Successfully created user account with uid:", userData.uid);
