@@ -24,7 +24,7 @@ $(document).ready(function () {
 
 
     //проверка Аноним или Известный
-    var anonCheck = new Firebase('https://iwish.firebaseio.com/users/' + cookie + '/provider');
+    var anonCheck = new Firebase(iwish + '/users/' + cookie + '/provider');
 
     function readusertype() {
         anonCheck.orderByValue().on("value", function (snapshot) {
@@ -296,12 +296,8 @@ $(document).ready(function () {
         console.log(json_hedges);
         console.log(json_prises);
         console.log(wishes);
-
-        WishRef = UserDataRef.child(cookie);
-        inWishRef = WishRef.child('wishes');
-        inSomeWishRef = inWishRef.child(wishes);
-
-        inSomeWishRef.update({
+        WishRef = DataRef.child('users/' + cookie + '/wishes/' + wishes);
+        WishRef.update({
             "reasons": json_reasons,
             "heges": json_hedges,
             "prices": json_prises,
